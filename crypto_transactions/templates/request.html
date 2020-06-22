@@ -133,6 +133,8 @@
   <body>
     <div class="main-block">
       <h1>TEST REQUEST</h1>
+      <center><b>{{ message }}</b>
+
       <form action="confirm/" method="post">
           {% csrf_token %}
         <hr>
@@ -144,6 +146,7 @@
           <button type="submit">Submit</button>
         </div>
       </form>
+        </center>
     </div>
   </body>
 </html>

@@ -22,10 +22,37 @@ def home_page(request):
 
 
 @api_view(['GET', 'POST'])
+def login_user(request):
+    if request.method == 'GET':
+        page = 'login.html'
+        template = loader.get_template(page)
+        return HttpResponse(template.render({'message': 'make a selection'}, request), status=status.HTTP_200_OK)
+
+    if request.method == 'POST':
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
+
+        user = authenticate(username=username, password=password)
+        print('#'*100)
+        print(user)
+        if user is not None:
+            login(request, user)
+            print('#' * 100)
+            print(user)
+            return redirect(dash)
+        else:
+            error = {'error': 'non-existent  account',
+                     'message': 'the credentials you provided are not valid. Please cross-check and try again or '
+                                'register a new account if you do not have an account'}
+            return Response(error, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['GET', 'POST'])
 def dash(request):
     page = 'dash.html'
     template = loader.get_template(page)
     user = User.objects.get(username=request.user)
+    print(user)
     user = UsersData.objects.get(user=user)
     btc = float(user.bitcoin_balance)
     local = float(user.local_currency_balance)
@@ -89,28 +116,6 @@ def register(request):
 
     else:
         return Response('invalid request', status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET', 'POST'])
-def login_user(request):
-    if request.method == 'GET':
-        page = 'login.html'
-        template = loader.get_template(page)
-        return HttpResponse(template.render({'message': 'make a selection'}, request), status=status.HTTP_200_OK)
-
-    if request.method == 'POST':
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect(dash)
-        else:
-            error = {'error': 'non-existent  account',
-                     'message': 'the credentials you provided are not valid. Please cross-check and try again or '
-                                'register a new account if you do not have an account'}
-            return Response(error, status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['GET'])

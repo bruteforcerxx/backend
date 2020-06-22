@@ -25,15 +25,30 @@ def coinbase(param):
     try:
         tx = ['completed']
         # client = Client(key, secret)
-        # tx = client.send_money(id, to=param['to'], amount=param['amount], currency='BTC', desc=param[desc])
+        # tx = client.send_money(id, to=param['to'], amount=param['amount], currency=param['currency'],
+        # desc=param[desc])
         if 'completed' in tx:
             param['status'] = 'success'
             param['resolved'] = True
+            currency = param['currency']
             user = User.objects.get(username=param['user'])
             user = UsersData.objects.get(user=user)
-            balance = float(user.bitcoin_balance)
-            balance -= float(param['amount'])
-            user.bitcoin_balance = balance
+            if currency == 'BTC':
+                balance = float(user.bitcoin_balance)
+                balance -= float(param['amount'])
+                user.bitcoin_balance = balance
+            elif currency == 'ETH':
+                balance = float(user.etherum_balance)
+                balance -= float(param['amount'])
+                user.etherum_balance = balance
+            elif currency == 'LTC':
+                balance = float(user.litecoin_balance)
+                balance -= float(param['amount'])
+                user.litecoin_balance = balance
+            elif currency == 'BTC':
+                balance = float(user.bitcoin_cash_balance)
+                balance -= float(param['amount'])
+                user.bitcoin_cash_balance = balance
             user.save()
             save(param)
             return 'success'
@@ -63,24 +78,49 @@ def luno(param):
 def local(param):
     try:
         receiver = param['to']
-        param['type'] = 'Credit'
         sender = param['user']
         if User.objects.get(email=receiver):
+            currency = param['currency']
             user = User.objects.get(username=sender)
             user = UsersData.objects.get(user=user)
-            balance = float(user.bitcoin_balance)
-            balance -= float(param['amount'])
-            user.bitcoin_balance = balance
+            if currency == 'BTC':
+                balance = float(user.bitcoin_balance)
+                balance -= float(param['amount'])
+                user.bitcoin_balance = balance
+            elif currency == 'ETH':
+                balance = float(user.etherum_balance)
+                balance -= float(param['amount'])
+                user.etherum_balance = balance
+            elif currency == 'LTC':
+                balance = float(user.litecoin_balance)
+                balance -= float(param['amount'])
+                user.litecoin_balance = balance
+            elif currency == 'BTC':
+                balance = float(user.bitcoin_cash_balance)
+                balance -= float(param['amount'])
+                user.bitcoin_cash_balance = balance
+            user.save()
+            save(param)
             print('*'*100)
 
             receiver = User.objects.get(email=receiver)
             receiver_data = UsersData.objects.get(user=receiver)
-            balance = float(receiver_data.bitcoin_balance)
-            print(balance, receiver)
-            balance += float(param['amount'])
-            receiver_data.bitcoin_balance = balance
-            print(balance, receiver)
-            user.save()
+            if currency == 'BTC':
+                balance = float(user.bitcoin_balance)
+                balance += float(param['amount'])
+                user.bitcoin_balance = balance
+            elif currency == 'ETH':
+                balance = float(user.etherum_balance)
+                balance += float(param['amount'])
+                user.etherum_balance = balance
+            elif currency == 'LTC':
+                balance = float(user.litecoin_balance)
+                balance += float(param['amount'])
+                user.litecoin_balance = balance
+            elif currency == 'BTC':
+                balance = float(user.bitcoin_cash_balance)
+                balance += float(param['amount'])
+                user.bitcoin_cash_balance = balance
             receiver_data.save()
 
             hist = History.objects.get(user=receiver)
@@ -88,6 +128,7 @@ def local(param):
             history = decoder.decode(hist.history)
             letters = string.ascii_lowercase
             identity = ''.join(random.choice(letters) for _ in range(30))
+            param['type'] = 'Credit'
             history[identity] = param
             hist.history = json.dumps(history)
 
@@ -109,12 +150,22 @@ def local(param):
 def save(param):
     username = param['user']
     param['type'] = 'Debit'
+    cur = param['currency']
 
     user = User.objects.get(username=username)
     hist = History.objects.get(user=user)
-
+    history = None
     decoder = json.decoder.JSONDecoder()
-    history = decoder.decode(hist.history)
+    cur = 'BTC'
+    if cur == 'BTC':
+        history = decoder.decode(hist.btc_history)
+    elif cur == 'ETH':
+        history = decoder.decode(hist.eth_history)
+    elif cur == 'LTC':
+        history = decoder.decode(hist.ltc_history)
+    elif cur == 'BCH':
+        history = decoder.decode(hist.bch_history)
+
     letters = string.ascii_lowercase
     identity = ''.join(random.choice(letters) for _ in range(30))
     history[identity] = param

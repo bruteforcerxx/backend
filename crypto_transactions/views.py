@@ -83,7 +83,7 @@ def send(request):
     page = 'request.html'
     template = loader.get_template(page)
     currency = request.session['currency']
-    message = f'enter details to send {currency}'
+    message = f'complete details to send {currency}'
     return HttpResponse(template.render({'form': form, 'message': message}, request), status=status.HTTP_200_OK)
 
 
@@ -122,10 +122,22 @@ def check(request):
         user = params['user']
         amount = params['amount']
 
+        print(params)
+        print(platform)
+
         if User.objects.get(username=user):
             user = User.objects.get(username=user)
             user = UsersData.objects.get(user=user)
-            balance = float(user.bitcoin_balance)
+            balance = 0.00
+            if currency == 'BTC':
+                balance = float(user.bitcoin_balance)
+            elif currency == 'ETH':
+                balance = float(user.etherum_balance)
+            elif currency == 'LTC':
+                balance = float(user.litecoin_balance)
+            elif currency == 'BTC':
+                balance = float(user.bitcoin_cash_balance)
+
             print(user, balance)
 
             if balance >= float(amount):

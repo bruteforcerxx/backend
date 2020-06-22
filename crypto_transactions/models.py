@@ -22,6 +22,14 @@ PLATFORM = [
     ('blockchain', 'blockchain')
 ]
 
+CURRENCY =[
+    ('BTC', 'BTC'),
+    ('ETH', 'ETH'),
+    ('LTC', 'LTC'),
+    ('BCH', 'BCH'),
+    ('NGN', 'NGN')
+]
+
 
 class DebitTransaction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
@@ -30,9 +38,10 @@ class DebitTransaction(models.Model):
     tx_hash = models.CharField(max_length=400, blank=True, null=True)
     amount = models.DecimalField(max_digits=50, decimal_places=8)
     type = models.CharField(max_length=250, choices=TRANSACTION_TYPE, default='debit')
-    platform = models.CharField(max_length=250, choices=PLATFORM, default='blockchain')
+    route = models.CharField(max_length=250, choices=PLATFORM, default='blockchain')
+    currency = models.CharField(max_length=250, choices=CURRENCY, default='BTC')
     description = models.CharField(max_length=250, blank=True, null=True)
-    destination = models.CharField(max_length=250, blank=True, null=True)
+    destination = models.CharField(max_length=250, blank=True, default='not provided')
     status = models.CharField(max_length=200, choices=STATUS, default='pending')
     resolve = models.BooleanField(default=False)
     objects = None
