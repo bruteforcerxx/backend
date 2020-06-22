@@ -78,6 +78,7 @@ def luno_sender():
 
             if 'success' in rs:
                 p.status = 'success'
+                p.resolved = True
                 p.save()
 
                 user = User.objects.get(username=p.username)
