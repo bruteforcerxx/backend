@@ -132,14 +132,24 @@
   </head>
   <body>
     <div class="main-block">
-      <h1> TESTING RESPONSE VIEW </h1>
+      <h1> TESTING ACTION VIEW </h1>
       {% csrf_token %}
+      <center>
+      <b>{{ message }}</b>
+      <hr>
+      {% if currency == "BTC" %}
+      <form action="http://127.0.0.1:8000/transactions/bitcoin/platform" method="get">
+        <button type="submit">Send</button>
+      </form>
+      {% else %}
       <form action='{% url "send" %}' method="get">
         <button type="submit">Send</button>
       </form>
+      {% endif %}
           <form action='{% url "receive" %}' method="get">
         <button type="submit">Receive</button>
       </form>
+        </center>
     </div>
   </body>
 </html>

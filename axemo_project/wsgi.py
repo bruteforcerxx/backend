@@ -40,6 +40,6 @@ def run_luno_auto():
 
 
 auto_thread_1 = Thread(target=run_luno_auto)
-auto_thread_1.start()
+
 
 

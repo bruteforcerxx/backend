@@ -1,4 +1,3 @@
-
 from django.http import HttpResponse
 from .models import TransferForm
 from rest_framework import status
@@ -15,17 +14,64 @@ import json
 
 
 @api_view(['GET', 'POST'])
-def index(request):
+def index_btc(request):
     page = 'selection.html'
     template = loader.get_template(page)
-    return HttpResponse(template.render({'message': 'make a selection'}, request), status=status.HTTP_200_OK)
+
+    request.session['currency'] = 'BTC'
+    context = {'message': 'Select an action for Bitcoin', 'currency': 'BTC'}
+    return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'POST'])
+def btc_select_platform(request):
+    if request.method == 'GET':
+        page = 'platforms.html'
+        template = loader.get_template(page)
+
+        return HttpResponse(template.render({'message': 'select a btc platform'}, request), status=status.HTTP_200_OK)
+
+    if request.method == 'POST':
+        request.session['btc_platform'] = request.POST.get('platform', '')
+        return redirect(send)
+
+
+@api_view(['GET', 'POST'])
+def index_eth(request):
+    page = 'selection.html'
+    template = loader.get_template(page)
+
+    request.session['currency'] = 'ETH'
+    return HttpResponse(template.render({'message': 'Select an action for Etherum'}, request), status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'POST'])
+def index_ltc(request):
+    page = 'selection.html'
+    template = loader.get_template(page)
+
+    request.session['currency'] = 'LTC'
+
+    return HttpResponse(template.render({'message': 'Select an action for Litecoin '},
+                                        request), status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'POST'])
+def index_bch(request):
+    page = 'selection.html'
+    template = loader.get_template(page)
+
+    request.session['currency'] = 'BCH'
+
+    return HttpResponse(template.render({'message': 'Select an action for Bitcoin Cash'},
+                                        request), status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def receive(request):
     page = 'address.html'
     template = loader.get_template(page)
-    user = 'test'
+    user = request.user
     context = {'address': get_address(user)}
     return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
@@ -36,7 +82,9 @@ def send(request):
     form = form_model(None)
     page = 'request.html'
     template = loader.get_template(page)
-    return HttpResponse(template.render({'form': form}, request), status=status.HTTP_200_OK)
+    currency = request.session['currency']
+    message = f'enter details to send {currency}'
+    return HttpResponse(template.render({'form': form, 'message': message}, request), status=status.HTTP_200_OK)
 
 
 @api_view(['POST', 'GET'])
@@ -55,9 +103,10 @@ def check(request):
             to = form.cleaned_data['destination']
             amount = float(form.cleaned_data['amount'])
             desc = form.cleaned_data['description']
-            platform = form.cleaned_data['platform']
+            currency = request.session['currency']
+            user = str(request.user)
 
-            context = {'to': to, 'amount': amount, 'desc': desc, 'platform': platform, 'user': str(request.user)}
+            context = {'to': to, 'amount': amount, 'desc': desc,  'currency': currency, 'user': user}
             request.session['data'] = context
             print(context)
 
@@ -68,7 +117,8 @@ def check(request):
 
     if request.method == 'GET':
         params = request.session['data']
-        platform = params['platform']
+        platform = request.session['btc_platform']
+        currency = params['currency']
         user = params['user']
         amount = params['amount']
 
@@ -81,14 +131,17 @@ def check(request):
             if balance >= float(amount):
                 response = 'request not resolved'
 
-                if platform == 'blockchain':
+                if currency == 'BTC':
+                    if platform == 'blockchain':
+                        response = coinbase(params)
+                    elif platform == 'coinbase':
+                        response = coinbase(params)
+                    elif platform == 'luno':
+                        response = luno(params)
+                    elif platform == 'axemo':
+                        response = local(params)
+                else:
                     response = coinbase(params)
-                elif platform == 'coinbase':
-                    response = coinbase(params)
-                elif platform == 'luno':
-                    response = luno(params)
-                elif platform == 'axemo':
-                    response = local(params)
 
                 print(response)
 

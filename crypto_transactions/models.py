@@ -44,4 +44,4 @@ class DebitTransaction(models.Model):
 class TransferForm(ModelForm):
     class Meta:
         model = DebitTransaction
-        fields = ['platform', 'destination', 'amount', 'description']
+        fields = ['destination', 'amount', 'description']
