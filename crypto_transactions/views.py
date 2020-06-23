@@ -14,13 +14,14 @@ import json
 
 
 @api_view(['GET', 'POST'])
-def index_btc(request):
+def crypto(request, currency):
+    print(currency)
     page = 'selection.html'
     template = loader.get_template(page)
-
     request.session['currency'] = 'BTC'
     context = {'message': 'Select an action for Bitcoin', 'currency': 'BTC'}
-    return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+    return Response({'currency': currency}, status=status.HTTP_200_OK)
+    # return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
 
 @api_view(['GET', 'POST'])
@@ -117,7 +118,8 @@ def check(request):
 
     if request.method == 'GET':
         params = request.session['data']
-        platform = request.session['btc_platform']
+        platform = str(request.session['btc_platform'])
+        print(platform)
         currency = params['currency']
         user = params['user']
         amount = params['amount']
@@ -144,18 +146,22 @@ def check(request):
                 response = 'request not resolved'
 
                 if currency == 'BTC':
+                    print('+++++'*10)
                     if platform == 'blockchain':
+
                         response = coinbase(params)
                     elif platform == 'coinbase':
+                        print('blockchain' * 10)
                         response = coinbase(params)
                     elif platform == 'luno':
                         response = luno(params)
                     elif platform == 'axemo':
                         response = local(params)
                 else:
+                    print('something else'*10)
                     response = coinbase(params)
 
-                print(response)
+                print(response*10)
 
                 page = 'processed.html'
                 template = loader.get_template(page)

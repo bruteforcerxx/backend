@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import UsersData
 from transactions_history.models import History
 from django.shortcuts import redirect
+import time
 import json
 
 # Create your views here.
@@ -18,6 +19,7 @@ import json
 def home_page(request):
     page = 'home.html'
     template = loader.get_template(page)
+    logout(request)
     return HttpResponse(template.render({'header': 'TESTING ABOUT VIEW'}, request), status=status.HTTP_200_OK)
 
 
@@ -26,19 +28,24 @@ def login_user(request):
     if request.method == 'GET':
         page = 'login.html'
         template = loader.get_template(page)
-        return HttpResponse(template.render({'message': 'make a selection'}, request), status=status.HTTP_200_OK)
+        logout(request)
+        return HttpResponse(template.render({'message': ''}, request), status=status.HTTP_200_OK)
 
     if request.method == 'POST':
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
 
         user = authenticate(username=username, password=password)
-        print('#'*100)
-        print(user)
-        if user is not None:
+        if authenticate(username=username, password=password):
             login(request, user)
-            print('#' * 100)
-            print(user)
+
+            request.session['current_user'] = username
+            request.session['user_password'] = password
+
+            request.session.set_expiry(0)
+            request.session['session_timeout'] = time.time() + 10
+            print(request.session['session_timeout'])
+
             return redirect(dash)
         else:
             error = {'error': 'non-existent  account',
@@ -49,16 +56,26 @@ def login_user(request):
 
 @api_view(['GET', 'POST'])
 def dash(request):
-    page = 'dash.html'
-    template = loader.get_template(page)
-    user = User.objects.get(username=request.user)
-    print(user)
-    user = UsersData.objects.get(user=user)
-    btc = float(user.bitcoin_balance)
-    local = float(user.local_currency_balance)
-    total_balance = btc + local
-    context = {'total_balance': total_balance, 'user': str(request.user)}
-    return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+    try:
+        if request.session['session_timeout'] > time.time():
+            print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
+            request.session['session_timeout'] = time.time() + 10
+            page = 'dash.html'
+            template = loader.get_template(page)
+            user = User.objects.get(username=request.user)
+            print(user)
+            user = UsersData.objects.get(user=user)
+            btc = float(user.bitcoin_balance)
+            local = float(user.local_currency_balance)
+            total_balance = btc + local
+            x = ['BITCOIN', 'ETHERUM', 'LITECOIN', 'BITCOIN CASH']
+            context = {'total_balance': total_balance, 'user': str(request.user), 'x': x}
+            return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+
+    except Exception as e:
+        print(e)
+        logout(request)
+        return redirect(login_user)
 
 
 @api_view(['GET', 'POST'])
@@ -69,6 +86,7 @@ def register(request):
         form = reg_form(None)
         page = 'reg.html'
         template = loader.get_template(page)
+        logout(request)
         return HttpResponse(template.render({'form': form}, request), status=status.HTTP_200_OK)
 
     if request.method == 'POST':
@@ -108,7 +126,7 @@ def register(request):
                     login(request, user)
                     print(f'authenticated={request.user.is_authenticated}')
                     context['logged in'] = str(request.user)
-                    return redirect(dash)
+                    return redirect(login)
                 else:
                     return Response({'an error occurred'}, status=status.HTTP_401_UNAUTHORIZED)
 

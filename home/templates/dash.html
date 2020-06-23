@@ -144,24 +144,11 @@
         <hr>
         <b>Total balance:  {{ total_balance }}btc </b>
       </center>
-
-      <form action="http://127.0.0.1:8000/transactions/bitcoin" method="get">
-          <button type="submit" value="bitcoin">BITCOIN ACCOUNT</button>
+      {% for c in x %}
+      <form action="{% url 'crypto' c %}" method="get">
+          <button type="submit" value="bitcoin">{{c}} ACCOUNT</button>
       </form>
-
-            <form action="http://127.0.0.1:8000/transactions/etherum" method="get">
-          <button type="submit" value="ether">ETHERUM ACCOUNT</button>
-      </form>
-            <form action="http://127.0.0.1:8000/transactions/bitcoin_cash" method="get">
-
-          <button type="submit" value="btc_cash">BITCOIN CASH ACCOUNT</button>
-      </form>
-            <form action="http://127.0.0.1:8000/transactions/litecoin" method="get">
-          <button type="submit" value="lc">LITECOIN ACCOUNT</button>
-      </form>
-        <form action="" method="get">
-          <button type="submit" value="naira">NARIA ACCOUNT</button>
-      </form>
+        {% endfor %}
     </div>
   </body>
 </html>

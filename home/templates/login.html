@@ -136,6 +136,7 @@
       <form action="" method="post">
         {% csrf_token %}
         <hr>
+        <b>{{ message }}</b>
         <label id="icon" for="username"><i class="fas fa-envelope"></i></label>
         <input type="text" name="username" id="username" placeholder="username" required/>
         <label id="icon" for="password"><i class="fas fa-unlock-alt"></i></label>

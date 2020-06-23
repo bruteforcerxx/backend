@@ -11,7 +11,8 @@ STATUS = [
 ]
 
 TRANSACTION_TYPE = [
-    ('debit', 'debit')
+    ('debit', 'debit'),
+    ('Transfer', 'Transfer')
 ]
 
 
