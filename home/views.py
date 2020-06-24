@@ -43,7 +43,7 @@ def login_user(request):
             request.session['user_password'] = password
 
             request.session.set_expiry(0)
-            request.session['session_timeout'] = time.time() + 10
+            request.session['session_timeout'] = time.time() + 600
             print(request.session['session_timeout'])
 
             return redirect(dash)
@@ -59,7 +59,7 @@ def dash(request):
     try:
         if request.session['session_timeout'] > time.time():
             print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
-            request.session['session_timeout'] = time.time() + 10
+            request.session['session_timeout'] = time.time() + 600
             page = 'dash.html'
             template = loader.get_template(page)
             user = User.objects.get(username=request.user)
@@ -68,10 +68,12 @@ def dash(request):
             btc = float(user.bitcoin_balance)
             local = float(user.local_currency_balance)
             total_balance = btc + local
-            x = ['BITCOIN', 'ETHERUM', 'LITECOIN', 'BITCOIN CASH']
+            x = ['BITCOIN', 'ETHERUM', 'LITECOIN', 'BITCOINCASH']
             context = {'total_balance': total_balance, 'user': str(request.user), 'x': x}
             return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
-
+        else:
+            logout(request)
+            return redirect(login_user)
     except Exception as e:
         print(e)
         logout(request)
@@ -126,7 +128,7 @@ def register(request):
                     login(request, user)
                     print(f'authenticated={request.user.is_authenticated}')
                     context['logged in'] = str(request.user)
-                    return redirect(login)
+                    return redirect(login_user)
                 else:
                     return Response({'an error occurred'}, status=status.HTTP_401_UNAUTHORIZED)
 

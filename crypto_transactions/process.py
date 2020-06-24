@@ -4,17 +4,24 @@ from django.contrib.auth.models import User
 from home.models import UsersData
 import string
 import random
-from .models import DebitTransaction
+from .models import DebitTransaction, Address
 
 
 # make transaction here
 key = "qllinMZsWKJxMbm1"
 secret = "O8166FUvpXgZk5XowalRE8cP0tVXRWkT"
-id ="98d51393-b7bf-5381-b727-21200c515708"
+btc_id ="98d51393-b7bf-5381-b727-21200c515708"
 
 
-def get_address(user):
-    return 'address'
+def get_address(user, cu):
+
+    print(type(cu))
+    client = Client(key, secret)
+    address = client.create_address(btc_id)
+    user = User.objects.get(username=user)
+    address_saver = Address(user=user, address=address['address'], currency=cu)
+    address_saver.save()
+    return address['address']
 
 
 def coinbase(param):
@@ -23,7 +30,7 @@ def coinbase(param):
     try:
         tx = ['completed']
         # client = Client(key, secret)
-        # tx = client.send_money(id, to=param['to'], amount=param['amount], currency=param['currency'],
+        # tx = client.send_money(btc_id, to=param['to'], amount=param['amount], currency=param['currency'],
         # desc=param[desc])
         if 'completed' in tx:
             param['status'] = 'success'
@@ -86,69 +93,79 @@ def local(param):
     try:
         receiver = param['to']
         sender = param['user']
+        currency = param['currency']
+        print(currency)
         if User.objects.get(email=receiver):
-            currency = param['currency']
             user = User.objects.get(username=sender)
             user = UsersData.objects.get(user=user)
             if currency == 'BTC':
                 balance = float(user.bitcoin_balance)
+                print(balance)
                 balance -= float(param['amount'])
                 user.bitcoin_balance = balance
+                print(user.bitcoin_balance)
             elif currency == 'ETH':
                 balance = float(user.etherum_balance)
+                print(balance)
                 balance -= float(param['amount'])
                 user.etherum_balance = balance
+                print(user.etherum_balance)
             elif currency == 'LTC':
                 balance = float(user.litecoin_balance)
+                print(balance)
                 balance -= float(param['amount'])
                 user.litecoin_balance = balance
-            elif currency == 'BTC':
+                print(user.litecoin_balance)
+            elif currency == 'BCH':
                 balance = float(user.bitcoin_cash_balance)
+                print(balance)
                 balance -= float(param['amount'])
                 user.bitcoin_cash_balance = balance
+                print(user.bitcoin_cash_balance)
             user.save()
             param['type'] = 'Transfer'
             param['status'] = 'success'
             param['resolved'] = True
 
             identity = save(param)
-            print('*'*100)
+            print(identity*10)
 
             receiver = User.objects.get(email=receiver)
-            receiver_data = UsersData.objects.get(user=receiver)
+            r = UsersData.objects.get(user=receiver)
             hist = History.objects.get(user=receiver)
-            history = None
 
             if currency == 'BTC':
-                balance = float(user.bitcoin_balance)
+                balance = float(r.bitcoin_balance)
+                print(balance)
                 balance += float(param['amount'])
-                user.bitcoin_balance = balance
+                r.bitcoin_balance = balance
+                print(r.bitcoin_balance)
                 history = eval(hist.btc_history)
                 history[identity] = param
                 hist.btc_history = str(history)
             elif currency == 'ETH':
-                balance = float(user.etherum_balance)
+                balance = float(r.etherum_balance)
                 balance += float(param['amount'])
-                user.etherum_balance = balance
+                r.etherum_balance = balance
                 history = eval(hist.eth_history)
                 history[identity] = param
                 hist.eth_history = str(history)
-            elif currency == 'LTC':
-                balance = float(user.litecoin_balance)
+            elif currency == 'LITE':
+                balance = float(r.litecoin_balance)
                 balance += float(param['amount'])
-                user.litecoin_balance = balance
+                r.litecoin_balance = balance
                 history = eval(hist.ltc_history)
                 history[identity] = param
                 hist.ltc_history = str(history)
             elif currency == 'BCH':
-                balance = float(user.bitcoin_cash_balance)
+                balance = float(r.bitcoin_cash_balance)
                 balance += float(param['amount'])
-                user.bitcoin_cash_balance = balance
+                r.bitcoin_cash_balance = balance
                 history = eval(hist.bch_history)
                 history[identity] = param
                 hist.bch_history = str(history)
             hist.save()
-            receiver_data.save()
+            r.save()
             return 'success'
         else:
             return f'User: {receiver} does not exist'
@@ -192,9 +209,11 @@ def save(param):
 
     hist.save()
 
+    dec = param['desc']
+    description = f'From: axemo \n sender: {user} \n description: {dec}'
     debit = DebitTransaction(user=user, username=username, tx_hash=identity, amount=param['amount'],
-                             description=param['desc'], destination=param['to'],
-                             status=param['status'], resolve=param['resolved'])
+                             description=description, destination=param['to'],
+                             status=param['status'], resolve=param['resolved'], route=param['route'])
     debit.save()
     print('transaction saved')
     return identity

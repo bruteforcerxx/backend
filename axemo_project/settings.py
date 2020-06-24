@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'rest_framework',
     'crypto_transactions.apps.CryptoTransactionsConfig',
+    'affiliate.apps.AffiliateConfig',
     'transactions_history.apps.TransactionsHistoryConfig',
     'home.apps.HomeConfig',
     'django.contrib.admin',

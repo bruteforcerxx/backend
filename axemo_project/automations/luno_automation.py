@@ -1,6 +1,5 @@
 import requests
 import time
-import json
 from decimal import Decimal
 from coinbase.wallet.client import Client
 from crypto_transactions.models import DebitTransaction
@@ -19,7 +18,7 @@ coinbase_id ="98d51393-b7bf-5381-b727-21200c515708"
 
 
 def luno_sender():
-    pending_luno_txs = DebitTransaction.objects.filter(platform='luno', status='pending', type='debit', resolve=False)
+    pending_luno_txs = DebitTransaction.objects.filter(route='luno', status='pending', type='debit', resolve=False)
     total_amount = 0
 
     if len(pending_luno_txs) > 0:
@@ -71,7 +70,9 @@ def luno_sender():
         print('Balance is sufficient.')
         print('initiating bulk transfers...')
         for p in pending_luno_txs:
-            payload = {'amount': p.amount, 'currency': 'XBT', 'address': p.destination, 'description': p.description}
+            payload = {'amount': p.amount, 'currency': 'XBT', 'address': p.destination, 'description': p.description,
+                       'message': f'  Sender: {p.username}.  Powered by axemo free bitcoin transfers'
+                                  '. Join us at www.google.com'}
             r = requests.get(luno_send_url, params=payload)
             print(f'sending request to luno {p.destination}...')
             rs = requests.post(r.url, auth=(key_id, secret_key)).json()
@@ -84,15 +85,15 @@ def luno_sender():
                 user = User.objects.get(username=p.username)
                 hist = History.objects.get(user=user)
 
-                decoder = json.decoder.JSONDecoder()
-                history = decoder.decode(hist.history)
-                for i, r in history.items():
-                    if i == p.tx_hash:
-                        r['resolved'] = True
-                        r['status'] = 'success'
+                # decoder = json.decoder.JSONDecoder()
+                # history = decoder.decode(hist.history)
+                # for i, r in history.items():
+                    # if i == p.tx_hash:
+                        # r['resolved'] = True
+                        # r['status'] = 'success'
 
-                hist.history = json.dumps(history)
-                hist.save()
+                # hist.history = json.dumps(history)
+                # hist.save()
 
                 print(f'sent {p.amount} to {p.destination} successfully.')
             else:

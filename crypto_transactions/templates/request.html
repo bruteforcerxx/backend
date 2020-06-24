@@ -32,8 +32,8 @@
       opacity: 0.3;
       }
       .main-block {
-      max-width: 390px;
-      min-height: 370px;
+      min-width: 500px;
+      min-height: 500px;
       padding: 10px 0;
       margin: auto;
       border-radius: 5px;
@@ -137,7 +137,7 @@
       <h1>TEST REQUEST</h1>
       <center><b>{{ message }}</b>
 
-      <form action="confirm/" method="post">
+      <form action='{% url "check" %}' method="post">
           {% csrf_token %}
         <hr>
         <input type="text" name="destination" id="destination" placeholder="address" required/>

@@ -41,11 +41,21 @@ class DebitTransaction(models.Model):
     type = models.CharField(max_length=250, choices=TRANSACTION_TYPE, default='debit')
     route = models.CharField(max_length=250, choices=PLATFORM, default='blockchain')
     currency = models.CharField(max_length=250, choices=CURRENCY, default='BTC')
-    description = models.CharField(max_length=250, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     destination = models.CharField(max_length=250, blank=True, default='not provided')
     status = models.CharField(max_length=200, choices=STATUS, default='pending')
     resolve = models.BooleanField(default=False)
     objects = None
+
+    def __str__(self):
+        return str(self.user)
+
+
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
+    currency = models.CharField(max_length=250)
+    date_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return str(self.user)
