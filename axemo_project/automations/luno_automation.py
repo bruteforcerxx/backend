@@ -85,15 +85,13 @@ def luno_sender():
                 user = User.objects.get(username=p.username)
                 hist = History.objects.get(user=user)
 
-                # decoder = json.decoder.JSONDecoder()
-                # history = decoder.decode(hist.history)
-                # for i, r in history.items():
-                    # if i == p.tx_hash:
-                        # r['resolved'] = True
-                        # r['status'] = 'success'
+                history = eval(hist.btc_history)
+                for i, r in history.items():
+                    if i == p.tx_hash:
+                        r['resolved'] = True
+                        r['status'] = 'success'
 
-                # hist.history = json.dumps(history)
-                # hist.save()
+                hist.save()
 
                 print(f'sent {p.amount} to {p.destination} successfully.')
             else:

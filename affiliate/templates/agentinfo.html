@@ -130,38 +130,43 @@
       button:hover {
       background: #26a9e0;
       }
-      li:not(:last-child) {
+      b:not(:last-child) {
       margin-bottom: 15px;
       }
     </style>
   </head>
   <body>
     <div class="main-block">
-         <h1> TESTING AGENT REGISTRATION  VIEW </h1>
+         <h1> TESTING AGENT INFO VIEW </h1>
       <hr>
-          <center><b>Make payment</b>
+      <div>
+        <center>
+          <b>Agent General Information</b>
           <hr>
-          <b>Get your referral link and code immediately after paying and start earning!</b>
-          <hr>
-              <b>select your preferred payment method</b>
-
-               <form action="{% url 'payment'  %}" method="post">
-                                 {% csrf_token %}
-        <div class="platform">
-          <input type="radio" value=BTC id="" name="currency" checked/>
-          <label for="radioOne" class="radio">bitcoin</label>
-          <input type="radio" value=ETH id="radioTwo" name="currency" />
-          <label for="radioTwo" class="radio">etherum</label>
-          <input type="radio" value=LTC id="radioThree" name="currency" />
-          <label for="radioThree" class="radio">litecoin</label>
-          <input type="radio" value=BCH id="radioFour" name="currency" />
-          <label for="radioFour" class="radio">bitcoin cash</label>
-            <input type="radio" value=NGN id="radioFive" name="currency" />
-          <label for="radioFour" class="radio">naira</label>
-        </div>
-              <button type="submit">Proceed</button>
+        </center>
+        <div>
+              <li><b>Rank: {{rank}}</b></li>
+              <li><b>Balance: {{earned}}</b></li>
+              <li><b>Referral link: {{link}}</b></li>
+              <li><b>Referral code: {{code}}</b></li>
+              <li><b>Total direct downlines: {{earned}}</b></li>
+              <li><b>Total secondary downlines: {{earned}}</b></li>
+              <b>Direct Downlines</b>
+              {% for d in p_dl %}
+              <li><b>d</b></li>
+              {% endfor %}
+              <b>Secondary Downlines</b>
+              {% for d in p_dl %}
+              <li><b>d</b></li>
+              {% endfor %}
+                          <form action="" method="get">
+              <button type="submit">Withdraw earnings</button>
            </form>
-               </center>
-          </div>
+                <form action="{% url 'upgrade' %}" method="get">
+              <button type="submit">Upgrade</button>
+           </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

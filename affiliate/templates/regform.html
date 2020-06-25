@@ -137,31 +137,22 @@
   </head>
   <body>
     <div class="main-block">
-         <h1> TESTING AGENT REGISTRATION  VIEW </h1>
+         <h1> TESTING AGENT REGISTER VIEW </h1>
       <hr>
-          <center><b>Make payment</b>
+      <div>
+        <center>
+          <b>Enter your pin and proceed to confirm registration</b>
           <hr>
-          <b>Get your referral link and code immediately after paying and start earning!</b>
-          <hr>
-              <b>select your preferred payment method</b>
-
-               <form action="{% url 'payment'  %}" method="post">
-                                 {% csrf_token %}
-        <div class="platform">
-          <input type="radio" value=BTC id="" name="currency" checked/>
-          <label for="radioOne" class="radio">bitcoin</label>
-          <input type="radio" value=ETH id="radioTwo" name="currency" />
-          <label for="radioTwo" class="radio">etherum</label>
-          <input type="radio" value=LTC id="radioThree" name="currency" />
-          <label for="radioThree" class="radio">litecoin</label>
-          <input type="radio" value=BCH id="radioFour" name="currency" />
-          <label for="radioFour" class="radio">bitcoin cash</label>
-            <input type="radio" value=NGN id="radioFive" name="currency" />
-          <label for="radioFour" class="radio">naira</label>
-        </div>
-              <button type="submit">Proceed</button>
+        </center>
+        <div>
+            <form action="{% url 'charge' %}" method="post">
+              {% csrf_token %}
+                      <label id="icon" for="pin"><i class="fas fa-unlock-alt"></i></label>
+        <input type="password" name="pin" id="pin" placeholder="Enter your pin" required/>
+              <button type="submit">Confirm</button>
            </form>
-               </center>
-          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

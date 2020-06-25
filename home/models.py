@@ -2,8 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django import forms
 from django.utils import timezone
+import hashlib
+# Create your models here
 
-# Create your models here.
+
+def encrypt():
+    pin = '0000'
+    crypt = hashlib.sha256(str(pin).encode()).hexdigest()
+    return crypt
 
 
 class UsersData(models.Model):
@@ -18,6 +24,7 @@ class UsersData(models.Model):
     vault_release_date = models.DateTimeField(default=timezone.now)
     referral = models.EmailField(max_length=250, blank=True, null=True)
     agent_status = models.CharField(max_length=400, default='level 0')
+    pin = models.CharField(max_length=200, default=encrypt())
     objects = None
 
     def __str__(self):

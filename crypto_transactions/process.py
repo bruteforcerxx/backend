@@ -126,6 +126,7 @@ def local(param):
             param['type'] = 'Transfer'
             param['status'] = 'success'
             param['resolved'] = True
+            param['type'] = 'Credit'
 
             identity = save(param)
             print(identity*10)

@@ -138,11 +138,11 @@
       <b>{{ message }}</b>
       <hr>
       {% if currency == "BITCOIN" %}
-      <form action='{% url "btc_platform" %}' method="get">
+      <form action='{% url "btc_platform" currency %}' method="get">
         <button type="submit">Send</button>
       </form>
       {% else %}
-      <form action='{% url "send" %}' method="get">
+      <form action='{% url "select_other_platform" currency %}' method="get">
         <button type="submit">Send</button>
       </form>
       {% endif %}

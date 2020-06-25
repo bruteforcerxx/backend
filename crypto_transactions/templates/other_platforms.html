@@ -39,9 +39,7 @@
       border-radius: 5px;
       border: solid 1px #ccc;
       box-shadow: 1px 2px 5px rgba(0,0,0,.31);
-      background-color: #08AEEA;
-      background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
-
+      background: #ebebeb;
       }
       form {
       margin: 0 30px;
@@ -130,38 +128,30 @@
       button:hover {
       background: #26a9e0;
       }
-      li:not(:last-child) {
-      margin-bottom: 15px;
-      }
     </style>
   </head>
   <body>
     <div class="main-block">
-         <h1> TESTING AGENT REGISTRATION  VIEW </h1>
-      <hr>
-          <center><b>Make payment</b>
-          <hr>
-          <b>Get your referral link and code immediately after paying and start earning!</b>
-          <hr>
-              <b>select your preferred payment method</b>
+      <h1> TESTING RESPONSE VIEW </h1>
 
-               <form action="{% url 'payment'  %}" method="post">
-                                 {% csrf_token %}
+        <hr>
+        <center>
+        <b>select a platform to send {{currency}}</b>
+        <hr>
+          <form action="" method="post">
+                   {% csrf_token %}
         <div class="platform">
-          <input type="radio" value=BTC id="" name="currency" checked/>
-          <label for="radioOne" class="radio">bitcoin</label>
-          <input type="radio" value=ETH id="radioTwo" name="currency" />
-          <label for="radioTwo" class="radio">etherum</label>
-          <input type="radio" value=LTC id="radioThree" name="currency" />
-          <label for="radioThree" class="radio">litecoin</label>
-          <input type="radio" value=BCH id="radioFour" name="currency" />
-          <label for="radioFour" class="radio">bitcoin cash</label>
-            <input type="radio" value=NGN id="radioFive" name="currency" />
-          <label for="radioFour" class="radio">naira</label>
+          <input type="radio" value=axemo id="radioThree" name="platform" />
+          <label for="radioThree" class="radio">axemo</label>
+          <input type="radio" value=blockchain id="radioFour" name="platform" />
+          <label for="radioFour" class="radio">blockchain</label>
         </div>
-              <button type="submit">Proceed</button>
-           </form>
-               </center>
-          </div>
+        <hr>
+        <div class="btn-block">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+     </center>
+    </div>
   </body>
 </html>

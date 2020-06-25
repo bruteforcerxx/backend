@@ -10,7 +10,7 @@ from .models import UsersData
 from transactions_history.models import History
 from django.shortcuts import redirect
 import time
-import json
+
 
 # Create your views here.
 
@@ -47,6 +47,7 @@ def login_user(request):
             print(request.session['session_timeout'])
 
             return redirect(dash)
+
         else:
             error = {'error': 'non-existent  account',
                      'message': 'the credentials you provided are not valid. Please cross-check and try again or '
@@ -60,20 +61,29 @@ def dash(request):
         if request.session['session_timeout'] > time.time():
             print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
             request.session['session_timeout'] = time.time() + 600
-            page = 'dash.html'
-            template = loader.get_template(page)
+
             user = User.objects.get(username=request.user)
-            print(user)
+
             user = UsersData.objects.get(user=user)
             btc = float(user.bitcoin_balance)
+            eth = float(user.etherum_balance)
+            ltc = float(user.litecoin_balance)
+            bch = float(user.bitcoin__cash_balance)
             local = float(user.local_currency_balance)
-            total_balance = btc + local
+
+            total_balance = btc + local + eth + ltc + bch
+
             x = ['BITCOIN', 'ETHERUM', 'LITECOIN', 'BITCOINCASH']
+
+            page = 'dash.html'
+            template = loader.get_template(page)
             context = {'total_balance': total_balance, 'user': str(request.user), 'x': x}
             return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+
         else:
             logout(request)
             return redirect(login_user)
+
     except Exception as e:
         print(e)
         logout(request)
@@ -107,6 +117,7 @@ def register(request):
                 context = {'error': f'email {email} already exists',
                            'message': 'please try again with a  different email'}
                 return Response(context, status=status.HTTP_406_NOT_ACCEPTABLE)
+
             except Exception as e:
                 print(e)
                 print('email available to be used')
@@ -129,6 +140,7 @@ def register(request):
                     print(f'authenticated={request.user.is_authenticated}')
                     context['logged in'] = str(request.user)
                     return redirect(login_user)
+
                 else:
                     return Response({'an error occurred'}, status=status.HTTP_401_UNAUTHORIZED)
 
