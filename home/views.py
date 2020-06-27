@@ -26,7 +26,7 @@ def home_page(request):
 @api_view(['GET', 'POST'])
 def login_user(request):
     if request.method == 'GET':
-        page = 'login.html'
+        page = 'pages/login.html'
         template = loader.get_template(page)
         logout(request)
         return HttpResponse(template.render({'message': ''}, request), status=status.HTTP_200_OK)
@@ -68,16 +68,19 @@ def dash(request):
             btc = float(user.bitcoin_balance)
             eth = float(user.etherum_balance)
             ltc = float(user.litecoin_balance)
-            bch = float(user.bitcoin__cash_balance)
+            bch = float(user.bitcoin_cash_balance)
             local = float(user.local_currency_balance)
-
+            # handle total balance
             total_balance = btc + local + eth + ltc + bch
+            balance_str=str(total_balance).split(".")
+            integer=balance_str[0]
+            floating = balance_str[1]
+            # x = ['BITCOIN', 'ETHERUM', 'LITECOIN', 'BITCOINCASH']
+            x = ['BITCOIN', 'ETHERUM', 'LITECOIN']
 
-            x = ['BITCOIN', 'ETHERUM', 'LITECOIN', 'BITCOINCASH']
-
-            page = 'dash.html'
+            page = 'pages/dashboard.html'
             template = loader.get_template(page)
-            context = {'total_balance': total_balance, 'user': str(request.user), 'x': x}
+            context = {'total_balance': total_balance, 'user': str(request.user), 'x': x, 'btc':btc, "eth":eth, 'ltc':ltc, "bch":bch, 'integer':integer, 'floating':floating}
             return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
         else:
@@ -96,7 +99,7 @@ def register(request):
 
     if request.method == 'GET':
         form = reg_form(None)
-        page = 'reg.html'
+        page = 'pages/register.html'
         template = loader.get_template(page)
         logout(request)
         return HttpResponse(template.render({'form': form}, request), status=status.HTTP_200_OK)

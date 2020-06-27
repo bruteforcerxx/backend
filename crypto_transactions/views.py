@@ -65,7 +65,7 @@ def receive(request):
 
 
 @api_view(['GET', 'POST'])
-def btc_select_platform(request, currency):
+def btc_select_platform(request):
     try:
         if request.session['session_timeout'] > time.time():
             print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
