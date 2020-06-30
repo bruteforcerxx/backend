@@ -7,6 +7,7 @@ urlpatterns = [
     path('payment/', views.payment, name='payment'),
     path('charge/', views.debit_user, name='charge'),
     path('upgrade/', views.upgrade, name='upgrade'),
-    path('withdraw/', views.withdraw, name='withdraw')
+    path('withdraw/', views.withdraw, name='withdraw'),
+    path('test/', views.test, name='withdraw')
 
 ]

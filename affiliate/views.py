@@ -21,7 +21,7 @@ def info(request):
     try:
         if request.session['session_timeout'] > time.time():
             print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
-            request.session['session_timeout'] = time.time() + 600
+            request.session['session_timeout'] = time.time() + 100000000000
             print('*' * 100)
 
             user = User.objects.get(username=request.user)
@@ -32,14 +32,22 @@ def info(request):
 
                 page = 'agentinfo.html'
                 template = loader.get_template(page)
-                # return Response(context, status=status.HTTP_200_OK)
                 return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
             else:
                 page = 'agentreg.html'
                 template = loader.get_template(page)
+                agent_data = agent[0]
+                rank = agent_data.rank
+                code = agent_data.referral_code
+                earned = agent_data.total_earned
+                p_down_lines = agent_data.primary_down_lines
+                s_down_lines = agent_data.total_primary_downlines
+                link = f'http://127.0.0.1:8000/home/register/{code}'
 
-                return HttpResponse(template.render({'header': 'TESTING agent VIEW'}, request),
+                context = {'rank': rank, 'code': code, 'earned': earned, 'p_down': p_down_lines,
+                           's_down': s_down_lines, 'link': link}
+                return HttpResponse(template.render(context, request),
                                     status=status.HTTP_200_OK)
 
         else:
@@ -183,3 +191,11 @@ def withdraw(request):
             else:
                 context = 'Transfer failed. Insufficient balance'
                 return Response(context, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def test(request):
+    page = 'pages/affiliate.html'
+    template = loader.get_template(page)
+    context = {'method': 'choose payment method'}
+    return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
