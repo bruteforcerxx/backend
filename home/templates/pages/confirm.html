@@ -1,0 +1,138 @@
+<!--
+=========================================================
+* Argon Dashboard - v1.2.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+
+
+* Copyright  Creative Tim (http://www.creative-tim.com)
+* Coded by www.creative-tim.com
+
+
+
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+{% extends 'pages/_base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'pages/_header.html' %}
+<!-- Header -->
+        <div class="header pb-6" style="width: 100; background-color:  #0027e3">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <div class="container">
+                  <div class="row justify-content-center">
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+
+
+     <!---------------------------------Confirmation page PAGES------------------------------------------>
+    <div class="container-fluid mt--6">
+      <div class="row justify-content-md-center">
+        <div class=" col ">
+          <div class="card">
+            <div class="card-header">
+              <div class="row justify-content-center">
+                <h3 class="mb-0" style="font-weight: 600">Please confirm transaction</h3>
+              </div>
+            </div>
+
+
+
+            <div class="card-body">
+              <div class="container">
+
+                <div class="card card-stats">
+                  <div class="row justify-content-center">
+                    <div>
+                      <span class="badge badge-pill" style="color: white; width: 150px; background-color:  #0027e3">Summary</span>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div>
+                      <h5 style="margin-top: 10px; font-weight: 500">Send {{amount}}btc to</h5>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div>
+                      <h5 style=" margin-top: -5px; font-weight: 500">{{to}}</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card card-stats" style="margin-top: -20px">
+                  <div class="row justify-content-center">
+                    <div>
+                     <span class="badge badge-pill" style="color: white; width: 150px; background-color:  #0027e3">Platform</span>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div>
+                      <h5 style="margin-top: 2px; font-weight: 500">{{platform}}</h5>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="card card-stats"style="margin-top: -20px">
+                  <div class="row justify-content-center">
+                    <div>
+                      <span class="badge badge-pill" style="color: white; width: 150px; background-color:  #0027e3">Service Fee</span>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div>
+                      <h5 style="margin-top: 2px; font-weight: 500">Free</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card card-stats" style="margin-top: -20px">
+                  <div class="row justify-content-center">
+                    <div>
+                      <span class="badge badge-pill" style="color: white; width: 150px; background-color:  #0027e3">Total</span>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div>
+                      <h5 style="margin-top: 2px; font-weight: 500">{{amount}}</h5>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+                <a href="{% url 'check' %}">
+                <button type="button" class="btn btn-block btn-icon btn-success" style="margin-top: 20px; max-height: 50px">
+                  <span class="btn-inner--icon"><i class="ni ni-send"></i></span>
+                  <span class="btn-inner--text">Confirm</span>
+                </button>
+                    </a>
+
+
+
+
+
+              </div>
+            </div>
+
+
+
+  <!-- Optional JS -->
+  <script src="../assets/vendor/clipboard/dist/clipboard.min.js"></script>
+  <!-- Argon JS -->
+  <script src="../assets/js/argon.js?v=1.2.0"></script>
+  {% endblock %}

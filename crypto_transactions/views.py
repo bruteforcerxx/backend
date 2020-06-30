@@ -9,6 +9,7 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from home.models import UsersData
 from django.shortcuts import redirect
+from transactions_history.models import History
 import time
 import hashlib
 
@@ -18,15 +19,44 @@ import hashlib
 @api_view(['GET', 'POST'])
 def crypto(request, currency):
     try:
+        request.session['session_timeout'] = time.time() + 60000000
         if request.session['session_timeout'] > time.time():
             print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
-            request.session['session_timeout'] = time.time() + 600
+            request.session['session_timeout'] = time.time() + 60000000
 
-            page = 'selection.html'
+            page = 'pages/accounts.html'
             template = loader.get_template(page)
 
+            logged_user = User.objects.get(username=request.user)
+
+            user = UsersData.objects.get(user=logged_user)
+
+            btc = float(user.bitcoin_balance)
+            eth = float(user.etherum_balance)
+            ltc = float(user.litecoin_balance)
+            bch = float(user.bitcoin_cash_balance)
+            ngn = float(user.local_currency_balance)
+
+            hist = History.objects.get(user=logged_user)
+            print('*'*500)
+            history = []
+            if currency == 'BITCOIN':
+                for h, i in eval(hist.btc_history).items():
+                    history.append(i)
+            elif currency == 'ETHERUM':
+                for h, i in eval(hist.eth_history).items():
+                    history.append(i)
+            elif currency == 'LITECOIN':
+                for h, i in eval(hist.ltc_history).items():
+                    history.append(i)
+            elif currency == 'BITCOINCASH':
+                for h, i in eval(hist.bch_history).items():
+                    history.append(i)
+
             request.session['currency'] = currency
-            context = {'message': f'Select an action for {currency.capitalize()}', 'currency': currency}
+            history.reverse()
+            context = {'btc': btc, 'eth': eth, 'ltc': ltc, 'bch': bch, 'local': ngn,
+                       'currency': currency.capitalize(), 'history': history}
             return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
         else:
@@ -64,153 +94,75 @@ def receive(request):
         return redirect('login')
 
 
-@api_view(['GET', 'POST'])
-def btc_select_platform(request):
-    try:
-        if request.session['session_timeout'] > time.time():
-            print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
-            request.session['session_timeout'] = time.time() + 600
-
-            if request.method == 'GET':
-                page = 'btc_platforms.html'
-                template = loader.get_template(page)
-
-                return HttpResponse(template.render({'message': 'select a btc platform'}, request),
-                                    status=status.HTTP_200_OK)
-
-            if request.method == 'POST':
-                request.session['btc_platform'] = request.POST.get('platform', '')
-                return redirect(send)
-
-        else:
-            logout(request)
-            return redirect('login')
-
-    except Exception as e:
-        print(e)
-        logout(request)
-        return redirect('login')
-
-
-@api_view(['POST', 'GET'])
-def select_other_platform(request, currency):
-    try:
-        if request.session['session_timeout'] > time.time():
-            print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
-            request.session['session_timeout'] = time.time() + 600
-
-            if request.method == 'GET':
-                page = 'other_platforms.html'
-                template = loader.get_template(page)
-
-                currency = request.session['currency']
-
-                return HttpResponse(template.render({'currency': currency}, request),
-                                    status=status.HTTP_200_OK)
-
-            if request.method == 'POST':
-                request.session['btc_platform'] = request.POST.get('platform', '')
-                return redirect(send)
-
-        else:
-            logout(request)
-            return redirect('login')
-
-    except Exception as e:
-        print(e)
-        logout(request)
-        return redirect('login')
-
-
-@api_view(['GET'])
-def send(request):
-    try:
-        if request.session['session_timeout'] > time.time():
-            print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
-            request.session['session_timeout'] = time.time() + 600
-
-            form_model = TransferForm
-            form = form_model(None)
-
-            page = 'request.html'
-            template = loader.get_template(page)
-
-            currency = request.session['currency']
-
-            message = f'complete details to send {currency}'
-            return HttpResponse(template.render({'form': form, 'message': message}, request), status=status.HTTP_200_OK)
-
-        else:
-            logout(request)
-            return redirect('login')
-
-    except Exception as e:
-        print(e)
-        logout(request)
-        return redirect('login')
-
-
 @api_view(['POST', 'GET'])
 def check(request):
     try:
-        form = TransferForm(request.POST)
-        page = 'confirm.html'
-        template = loader.get_template(page)
 
         if request.method == 'POST':
             try:
                 if request.session['session_timeout'] > time.time():
                     print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
-                    request.session['session_timeout'] = time.time() + 600
+                    request.session['session_timeout'] = time.time() + 100000
 
-                    pin = '0000'
+                    pin = str(request.POST.get('pin' ''))
+
                     user = User.objects.get(username=request.user)
                     user_d = UsersData.objects.get(user=user)
 
                     print(hashlib.sha256(pin.encode()).hexdigest())
                     print(str(user_d.pin))
+                    print('pass')
 
                     if hashlib.sha256(pin.encode()).hexdigest() == str(user_d.pin):
-                        if form.is_valid():
-                            print('FORM IS VALID')
+                        print('######################################')
+                        try:
+                            platform = request.POST.get('platform' '')
+                            to = request.POST.get('destination' '')
+                            amount = request.POST.get('amount' '')
+                            # desc = request.POST.get('desc' '')
+                            print(request.POST)
 
-                            to = form.cleaned_data['destination']
-                            amount = float(form.cleaned_data['amount'])
-                            desc = form.cleaned_data['description']
-                            currency = request.session['currency']
+                            if len(to) and len(amount) > 0:
+                                print('FORM IS VALID')
 
-                            context = {'to': to, 'amount': amount, 'desc': desc, 'currency': currency,
-                                       'user': str(request.user)}
-                            request.session['data'] = context
-                            print(context)
+                                currency = request.session['currency']
 
-                            return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+                                context = {'to': to, 'amount': amount, 'desc': 'desc', 'currency': currency,
+                                           'platform': platform, 'user': str(request.user)}
+                                request.session['data'] = context
+                                print(context)
+                                page = 'pages/confirm.html'
+                                template = loader.get_template(page)
 
-                        else:
-                            context = {'form validation error': form.errors, 'data': request.POST}
-                            return Response(context, status=status.HTTP_406_NOT_ACCEPTABLE)
+                                return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+                            else:
+                                context = {'error': 'form not valid'}
+                                return Response(context, status=status.HTTP_409_CONFLICT)
+
+                        except Exception as e:
+                            print(e)
 
                     else:
-                        context = {'incorrect pin'}
+                        context = {'form validation error': 'invalid pin provided', 'data': request.POST}
                         return Response(context, status=status.HTTP_406_NOT_ACCEPTABLE)
 
                 else:
                     logout(request)
                     return redirect('login')
 
-            except Exception as e:
+            except IndexError as e:
                 print(e)
                 logout(request)
                 return redirect('login')
 
         if request.method == 'GET':
-            params = request.session['data']
-            platform = str(request.session['btc_platform'])
 
+            params = request.session['data']
             currency = params['currency']
+
             user = params['user']
             amount = params['amount']
-            params['route'] = platform
+            platform = params['platform']
 
             if User.objects.get(username=user):
                 user = User.objects.get(username=user)
@@ -232,6 +184,10 @@ def check(request):
                 elif currency == 'BITCOINCASH':
                     balance = float(user.bitcoin_cash_balance)
                     params['currency'] = 'BCH'
+
+                elif currency == 'NAIRA':
+                    balance = float(user.local_currency_balance)
+                    params['currency'] = 'NGN'
 
                 if balance >= float(amount):
                     response = 'request not resolved'
@@ -291,7 +247,12 @@ def check(request):
             # status=status.HTTP_406_NOT_ACCEPTABLE)
 
     except Exception as e:
-        error = {'error': e}
+        error = {'error': str(e)}
         return Response(error, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def qrcam(request):
+    page = 'pages/index.html'
+    template = loader.get_template(page)
+    return HttpResponse(template.render({'header': 'TESTING confirm VIEW'}, request), status=status.HTTP_200_OK)

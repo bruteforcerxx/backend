@@ -1,0 +1,320 @@
+<!--
+=========================================================
+* Argon Dashboard - v1.2.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+
+
+* Copyright  Creative Tim (http://www.creative-tim.com)
+* Coded by www.creative-tim.com
+
+
+
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+{% extends 'pages/_base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'pages/_header.html' %}
+<!-- Header -->
+    <div class="header bg-primary pb-6" style="">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <div class="container">
+                  <div class="row justify-content-center">
+                  <h6 class="h2 text-white d-inline-block mb-0" style="margin-left: 140px">0.000355btc</h6>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+
+
+     <!---------------------------------MODAL PAGES------------------------------------------>
+    <div class="container-fluid mt--6">
+      <div class="row justify-content-md-center">
+        <div class=" col ">
+          <div class="card">
+            <div class="card-header bg-transparent">
+              <h3 class="mb-0"></h3>
+            </div>
+            <div class="card-body">
+              <div class="row icon-examples">
+                <div class="container">
+                  <div class="row justify-content-center">
+
+                      <button type="button" class="btn btn-primary btn-icon btn btn-success" data-toggle="modal"
+                              data-target="#modal-platforms" style="float: left; min-width: 130px">
+                        <span class="btn-inner--icon"><i class="ni ni-send"></i></span>
+                        <span class="btn-inner--text">Send</span>
+                      </button>
+
+                      <button type="button" class="btn btn-primary btn-icon btn btn-primary" data-toggle="modal"
+                              data-target="#modal-platforms"  style="float: right; min-width: 130px">
+                        <span class="btn-inner--icon"><i class="ni ni-money-coins"></i></span>
+                        <span class="btn-inner--text">Receive</span>
+                      </button>
+                    </div>
+                    <div>
+                    </div>
+
+
+  <form action='{% url "check" %}' method="post">
+      {% csrf_token %}
+
+   <div class="modal fade" id="modal-platforms" tabindex="-1" role="dialog" aria-labelledby="modal-notification"
+                    aria-hidden="true">=
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                   <h6 class="modal-title" id="modal-platform_header">What platform do you want to send to?</h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+                  <div class="custom-control custom-radio mb-4" style="margin-left: 40px" >
+
+                    <input type="radio" value="blockchain" id="customRadio1" name="platform"
+                           class="custom-control-input" checked/>
+                    <label class="custom-control-label" for="customRadio1" style="width: 20px">
+                      <span class="badge badge-pill  badge-secondary" style="width: 100px; top: -1px">Blockchain</span></label>
+                  </div>
+
+                  <div class="custom-control custom-radio mb-4" style="margin-left: 40px" >
+                    <input type="radio" value="axemo" id="customRadio2" name="platform" class="custom-control-input"/>
+                   <label class="custom-control-label" for="customRadio2" style="width: 20px">
+                      <span class="badge badge-pill  badge-primary" style="width: 100px; top: -1px">Axemo</span></label>
+                  </div>
+
+                  <div class="custom-control custom-radio mb-4" style="margin-left: 40px" >
+                    <input type="radio" value="coinbase" id="customRadio3" name="platform" class="custom-control-input"/>
+                    <label class="custom-control-label" for="customRadio3" style="width: 20px">
+                      <span class="badge badge-pill  badge-info" style="width: 100px; top: -1px">Coinbase</span></label>
+                  </div>
+                  <div class="custom-control custom-radio" style="margin-left: 40px" >
+                    <input type="radio" value="luno" id="customRadio4" name="platform" class="custom-control-input"/>
+                   <label class="custom-control-label" for="customRadio4" style="width: 20px">
+                      <span class="badge badge-pill  badge-primary" style="width: 100px; top: -1px">Luno</span></label>
+                  </div>
+
+
+
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-address">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="modal fade" id="modal-address" tabindex="-1" role="dialog" aria-labelledby="modal-address"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                   <h6 class="modal-title" id="modal-title-address">Who would you like to send to?</h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-delivery-fast"></i></span>
+                      </div>
+                      <input class="form-control" name="destination" placeholder="Bitcoin address" type="text">
+                    </div>
+                  </div>
+
+                    <button type="button" class="btn btn-primary btn-icon btn btn-success">
+                      <span class="btn-inner--icon"><i class="ni ni-camera-compact"></i></span>
+                      <span class="btn-inner--text">QR code</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-platforms">Previous</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-amount">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+      <div class="modal fade" id="modal-amount" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                   <h6 class="modal-title" id="modal-title-amount">How much would you like to send?</h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                      </div>
+                      <input class="form-control" name="amount" placeholder="Amount" type="text">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-address">Previous</button>
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-pin">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+                   <div class="modal fade" id="modal-pin" tabindex="-1" role="dialog" aria-labelledby="modal-pin"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                   <h6 class="modal-title" id="modal-title-pin">Please provide your pin to confirm</h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                      </div>
+                      <input class="form-control" name="pin" type="password" placeholder="password">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-amount">Previous</button>
+                        <button type="submit" class="btn btn-success">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  </form>
+
+
+
+
+
+
+
+
+
+
+               </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+    <div class="container-fluid mt--15">
+      <div class="row justify-content-md-center">
+        <div class=" col ">
+          <div class="card">
+            <div class="card-header bg-gradient-warning">
+              <div class="row justify-content-center">
+              <h3 class="mb-200">ACTIVITIES</h3>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row icon-examples">
+                <div class="container">
+                  <div class="row justify-content-center">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+
+  <!-- Optional JS -->
+  <script src="../assets/vendor/clipboard/dist/clipboard.min.js"></script>
+  <!-- Argon JS -->
+  <script src="../assets/js/argon.js?v=1.2.0"></script>
+  {% endblock %}

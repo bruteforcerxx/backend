@@ -96,6 +96,10 @@ def local(param):
         currency = param['currency']
         print(currency)
         if User.objects.get(email=receiver):
+
+            sender = User.objects.get(username=sender)
+            sender_email = sender.email
+
             user = User.objects.get(username=sender)
             user = UsersData.objects.get(user=user)
             if currency == 'BTC':
@@ -122,19 +126,27 @@ def local(param):
                 balance -= float(param['amount'])
                 user.bitcoin_cash_balance = balance
                 print(user.bitcoin_cash_balance)
+            elif currency == 'NGN':
+                balance = float(user.local_currency_balance)
+                print(balance)
+                balance -= float(param['amount'])
+                user.local_currency_balance = balance
+                print(user.local_currency_balance)
             user.save()
             param['type'] = 'Transfer'
             param['status'] = 'success'
             param['resolved'] = True
-            param['type'] = 'Credit'
-
+            param['type'] = 'Debit'
+            print(param)
             identity = save(param)
             print(identity*10)
 
             receiver = User.objects.get(email=receiver)
             r = UsersData.objects.get(user=receiver)
             hist = History.objects.get(user=receiver)
-
+            param['type'] = 'Credit'
+            param['from'] = sender_email
+            print(param)
             if currency == 'BTC':
                 balance = float(r.bitcoin_balance)
                 print(balance)
@@ -165,6 +177,13 @@ def local(param):
                 history = eval(hist.bch_history)
                 history[identity] = param
                 hist.bch_history = str(history)
+            elif currency == 'NGN':
+                balance = float(r.local_currency_balance)
+                balance += float(param['amount'])
+                r.local_currency_balance = balance
+                history = eval(hist.ngn_history)
+                history[identity] = param
+                hist.ngn_history = str(history)
             hist.save()
             r.save()
             return 'success'

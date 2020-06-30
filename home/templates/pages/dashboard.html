@@ -4,341 +4,231 @@
 {% block content %}
 {% include 'pages/_header.html' %}
     <!-- Header -->
-    <div class="header bg-primary pb-6" style="background: linear-gradient(to bottom left, #500852 0%, #4D1C50 100%) !important;  ">
+<body  style="background-color: #0027e3 !important;">
+<div class="header  pb-6" style="background-color: #0027e3; width: 100; !important;">
       <div class="container-fluid">
         <div class="header-body">
-         <div class="row align-items-center " >
-            <div class="col-lg-12 col-12" style="text-align: center; font-family:helvetica; padding-top: 10px; padding-bottom: 10px; ">
-                <h6 class="h2 text-white d-inline-block mb-0 " style="font-size:17px; color:grey!important;" >total balance:<br> <span style="font-size:28px; text-align: center; color:white !important;">{{ integer }}</span><span style="font-size:18px; text-align: center; color:white !important;s">.{{floating}}</span></h6>
-              
+            <div class="container-fluid ">
+                <div class="col">
+                    <span>
+                    </span>
+                </div>
+                <div class="col">
+                    <center>
+                    <span>
+                        <h3 class="text-muted  mt-10" style="margin-bottom: -10px; font-weight: 400;">Balance</h3>
+                        <h1 class="display-1 mt-1" style="color: white; font-weight: 300;
+                        background-color: #0027e3;">₦ {{ integer }}0</h1>
+                    </span>
+                        </center>
+                </div>
             </div>
-            
-          </div>
-          <!-- Card stats -->
-          <div class="scrolling" style="overflow: auto; padding-right:30px !important; padding-left:2px !important; " > 
+                                <!-- Card stats -->
+          <div class="scrolling" style="overflow: auto; padding-right:30px !important; padding-left:2px !important; " >
             <div class="row flex-row flex-nowrap ">
-             
-            
-              {% for c in x %} 
-             
+              {% for c in x %}
               <div class="col" style="padding :19px !important;">
                 <div class="cardie" >
-  <div class="cardie__front cardie__part">
-    <img class="cardie__front-square cardie__square" style="padding-left:4px !important; padding-top:8px !important;" src="https://image.ibb.co/cZeFjx/little_square.png">
-    <img class="cardie__front-logo cardie__logo" src="https://www.fireeye.com/partners/strategic-technology-partners/visa-fireeye-cyber-watch-program/_jcr_content/content-par/grid_20_80_full/grid-20-left/image.img.png/1505254557388.png">
-    <p class="cardie_numer">Hover To Use Card</p>
-    <div class="cardie__space-75">
-      <span class="cardie__label" style="padding-left:20px !important;">cardie type</span>
-      <p class="cardie__info" style="padding-left:20px !important;">{{c}}</p>
-    </div>
-    <div class="cardie__space-25">
-      <span class="cardie__label">balance</span>
-            <p class="cardie__info"> {% if c == 'BITCOIN' %}{{btc}}{% elif c == "ETHERUM"  %}{{eth}}{% elif c == 'LITECOIN' %}{{ltc}}{% else %}0{% endif %}</p>
-         
-    </div>
-  </div>
-  
-  <div class="cardie__back cardie__part">
-    <div class="cardie__black-line"></div>
-    <div class="cardie__back-content">
-      <div class="cardie__secret">
-        <p class="cardie__secret--last">420</p>
-      </div>
-      <img class="cardie__back-square cardie__square" src="https://image.ibb.co/cZeFjx/little_square.png">
-      <img class="cardie__back-logo cardie__logo" src="https://www.fireeye.com/partners/strategic-technology-partners/visa-fireeye-cyber-watch-program/_jcr_content/content-par/grid_20_80_full/grid-20-left/image.img.png/1505254557388.png">
-      
-    </div>
-  </div>
-  
-</div>
-              </div>{% endfor %}
-            </div>
-
-          </div>
-      </div>
-    </div>
-    </div>
-    <!-- Page content -->
-    <div class="container-fluid mt--6" style="padding-top: 23px; ">
-      <div class="row">
-        <div class="col-xl-8">
-          <div class="card bg-default" style="background-color:white !important;">
-              <style>
-              #trading::-webkit-scrollbar{
-                    display:none;
-                  }
-              </style>
-            <div id="trading" class="tradingview-widget-container" style="padding-top: 20px; overflow-x: scroll; -ms-overflow-style: none;">
-                        <div id="tradingview_e0224"></div>
-                        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/COINBASE-BTCUSD/" rel="noopener" target="_blank"><span class="blue-text">BTCUSD Chart</span></a> by Axemo technologies</div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                        <script type="text/javascript">
-                        new TradingView.widget(
-                        {
-                        "width":650,
-                        "height": 610,
-                        "symbol": "COINBASE:BTCUSD",
-                        "interval": "D",
-                        "timezone": "Etc/UTC",
-                        "theme": "light",
-                        "style": "1",
-                        "locale": "en",
-                        "toolbar_bg": "#f1f3f6",
-                        "enable_publishing": false,
-                        "allow_symbol_change": true,
-                        "hotlist": true,
-                        "container_id": "tradingview_e0224"
-                      }
-                        );
-                        </script>
+                  <div class="cardie__front cardie__part">
+                    <img class="cardie__front-square cardie__square"
+                         style="padding-left:4px !important; padding-top:8px !important;" src=''>
+                    <img class="cardie__front-logo cardie__logo" src="">
+                    <p class="cardie_numer">
+                     {% if c == 'BITCOIN' %}
+                      <img src="{% static 'assets/img/icons/common/btc.png' %}">
+                      {% elif c == "ETHERUM"  %}
+                      <img src="{% static 'assets/img/icons/common/eth.png' %}">
+                      {% elif c == "LITECOIN"  %}
+                      <img src="{% static 'assets/img/icons/common/ltc.png' %}">
+                      {% elif c == "BITCOINCASH"  %}
+                      <img src="{% static 'assets/img/icons/common/bch.png' %}">
+                      {% elif c == "NAIRA"  %}
+                    <img src="{% static 'assets/img/icons/common/ngn.png' %}">
+                        {% else %}
+                        {% endif %}
+                      </p>
+                    <div class="cardie__space-75">
+                      <span class="cardie__label" style="padding-left:20px !important;">Currency</span>
+                      <p class="cardie__info" style="padding-left:20px !important;">{{c}}</p>
+                    </div>
+                    <div class="cardie__space-25">
+                      <span class="cardie__label" >balance</span>
+                      <p class="cardie__info" style="margin-left: -40px">
+                        {% if c == 'BITCOIN' %}{{btc}}
+                        {% elif c == "ETHERUM"  %}{{eth}}
+                        {% elif c == 'LITECOIN' %}{{ltc}}
+                        {% elif c == 'BITCOINCASH' %}{{bch}}
+                        {% elif c == 'NAIRA' %}{{naira}}
+                        {% else %}
+                        {% endif %}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="cardie__back cardie__part">
+                      <div class="cardie__black-line">
                       </div>
+                      <div class="cardie__back-content">
+                          <a href="{% url 'crypto' c%}">
+                              <button type="button" style="font-size: .875rem;
+    font-weight: 600;
+    line-height: -5;
+    width: 100% ;
+    height: 35px;
+    display: inline-block;
+
+    padding: .625rem 1.25rem;
+
+    cursor: pointer;
+    -webkit-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color
+     .15s ease-in-out, box-shadow .15s ease-in-out;
+    text-align: center;
+    vertical-align: middle;
+
+    color: #525f7f;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    background-color: transparent;  color: #fff;
+    border-color: #fb6340;
+    background-color: #fb6340;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    color: #fff;
+    border-color: #0027e3;
+    background-color:  #0027e3;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    color:  # fff;
+    border - color:  #  #0027e3;
+    background-color: #0027e3;">Tap here to use this account</button>
+                          </a>
+                          <img class="cardie__back-square cardie__square" src="">
+                          <img class="cardie__back-logo cardie__logo" src="">
+                      </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
           </div>
-        </div>
-        <div class="col-xl-4">
+          </div>
+      </div>
+    </div>
+
+
+ <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row justify-content-md-center">
+        <div class=" col ">
           <div class="card">
             <div class="card-header bg-transparent">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                  <h5 class="h3 mb-0">Total orders</h5>
+                <div class="row justify-content-center">
+                </div>
+            </div>
+
+
+          <div class="card-body" style="background-color: #ffffff;">
+              <div class="row icon-examples">
+                <div class="container">
+                  <div class="row justify-content-center" >
+                      <div style="min-width: 100%; margin-top: -26px">
+                      <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js">
+                      </script><div class="coinmarketcap-currency-widget" data-currencyid="1" data-base="NGN"
+                                    data-secondary="USD" data-ticker="true" data-rank="true" data-marketcap="true"
+                                    data-volume="true" data-statsticker="true" data-stats="USD"></div>
+                      </div>
+
+                      <div style="min-width: 100%">
+                          <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js">
+                          </script><div class="coinmarketcap-currency-widget" data-currencyid="1831" data-base="NGN"
+                                        data-secondary="USD" data-ticker="true" data-rank="true" data-marketcap="true"
+                                        data-volume="true" data-statsticker="true" data-stats="USD"></div>
+                      </div>
+
+                      <div style="min-width: 100%">
+                      <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
+                      <div class="coinmarketcap-currency-widget" data-currencyid="1027" data-base="NGN" data-secondary="USD"
+                           data-ticker="true" data-rank="true" data-marketcap="true" data-volume="true" data-statsticker="true"
+                           data-stats="USD"></div>
+                    </div>
+
+                      <div style="min-width: 100%">
+                          <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js">
+                          </script><div class="coinmarketcap-currency-widget" data-currencyid="2" data-base="NGN"
+                                        data-secondary="USD" data-ticker="true" data-rank="true" data-marketcap="true"
+                                        data-volume="true" data-statsticker="true" data-stats="USD"></div>
+                      </div>
+                      <div class="row justify-content-center" style="margin-top: 30px; margin-bottom: -20px" >
+                  <h1 style="font-weight: 400; min-width: 100% ">News feed</h1>
+                </div>
+                      <div class="card-body" style="min-width: 100%">
+                          <script type="text/javascript">
+baseUrl = "https://widgets.cryptocompare.com/";
+var scripts = document.getElementsByTagName("script");
+var embedder = scripts[ scripts.length - 1 ];
+var cccTheme = {"General":{"borderColor":"#ffffff"},"Chart":{"fillColor":"#b6f2ec","borderColor":"#38c9eb"}};
+(function (){
+var appName = encodeURIComponent(window.location.hostname);
+if(appName==""){appName="local";}
+var s = document.createElement("script");
+s.type = "text/javascript";
+s.async = true;
+var theUrl = baseUrl+'serve/v1/coin/feed?fsym=BTC&tsym=USD';
+s.src = theUrl + ( theUrl.indexOf("?") >= 0 ? "&" : "?") + "app=" + appName;
+embedder.parentNode.appendChild(s);
+})();
+</script></div>
+                    </div>
+                    <div>
+                    </div>
                 </div>
               </div>
-            </div>
-            <div class="card-body">
-              <!-- Chart -->
-              <div class="chart">
-                <canvas id="chart-bars" class="chart-canvas"></canvas>
+          </div>
+
+
+
+
+<div class="col-xl-4 row justify-content-center" style="min-width: 100%;">
+    <!-------------place back to top function here. i have already placed the arrow in it-------->
+          <div class="card"  style="max-width: 500px; margin-left: 20px;  background-color: #0027e3">
+            <div class="card-header bg-transparent">
+              <div class="row justify-content-center" style="margin-top: -10px; margin-bottom: -10px">
+                <span class="text-secondary mr-2" style="margin-left: 7px"><i class="fa fa-arrow-up"></i></span>
               </div>
             </div>
           </div>
-        </div>
+
+         </div>
       </div>
-      <div class="row">
-        <div class="col-xl-8">
-          <div class="card">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h3 class="mb-0">Page visits</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
-                </div>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Page name</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col">Unique users</th>
-                    <th scope="col">Bounce rate</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">
-                      /argon/
-                    </th>
-                    <td>
-                      4,569
-                    </td>
-                    <td>
-                      340
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/index.html
-                    </th>
-                    <td>
-                      3,985
-                    </td>
-                    <td>
-                      319
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/charts.html
-                    </th>
-                    <td>
-                      3,513
-                    </td>
-                    <td>
-                      294
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/tables.html
-                    </th>
-                    <td>
-                      2,050
-                    </td>
-                    <td>
-                      147
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/profile.html
-                    </th>
-                    <td>
-                      1,795
-                    </td>
-                    <td>
-                      190
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4">
-          <div class="card">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h3 class="mb-0">Social traffic</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
-                </div>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Referral</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">
-                      Facebook
-                    </th>
-                    <td>
-                      1,480
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">60%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Facebook
-                    </th>
-                    <td>
-                      5,480
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">70%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Google
-                    </th>
-                    <td>
-                      4,807
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">80%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Instagram
-                    </th>
-                    <td>
-                      3,678
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">75%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      twitter
-                    </th>
-                    <td>
-                      2,645
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">30%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
+</div>
       <!-- Footer -->
-      
+
+       <footer class="footer pt-0" style="margin-top: 20px; background-color: #0027e3  ">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted">
+              &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Axemo</a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+              <li class="nav-item">
+                <a href="https://www.creative-tim.com" class="nav-link" style="color: white" target="_blank">axemo</a>
+              </li>
+              <li class="nav-item">
+                <a href="https://www.creative-tim.com/presentation" class="nav-link"  style="color: white" target="_blank">About us</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
   <!-- Argon Scripts -->
   <!-- Core -->
-  
+
   <!-- Optional JS -->
   <script src="{% static 'assets/vendor/chart.js/dist/Chart.min.js' %}"></script>
   <script src="{% static 'assets/vendor/chart.js/dist/Chart.extension.js' %}"></script>
   <!-- Argon JS -->
-  {% endblock %} 
+</body>
+  {% endblock %}

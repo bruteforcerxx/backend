@@ -43,7 +43,7 @@ def login_user(request):
             request.session['user_password'] = password
 
             request.session.set_expiry(0)
-            request.session['session_timeout'] = time.time() + 600
+            request.session['session_timeout'] = time.time() + 100000
             print(request.session['session_timeout'])
 
             return redirect(dash)
@@ -58,9 +58,10 @@ def login_user(request):
 @api_view(['GET', 'POST'])
 def dash(request):
     try:
+        request.session['session_timeout'] = time.time() + 100000
         if request.session['session_timeout'] > time.time():
             print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
-            request.session['session_timeout'] = time.time() + 600
+            request.session['session_timeout'] = time.time() + 100000
 
             user = User.objects.get(username=request.user)
 
@@ -70,17 +71,25 @@ def dash(request):
             ltc = float(user.litecoin_balance)
             bch = float(user.bitcoin_cash_balance)
             local = float(user.local_currency_balance)
+
             # handle total balance
+
             total_balance = btc + local + eth + ltc + bch
-            balance_str=str(total_balance).split(".")
-            integer=balance_str[0]
-            floating = balance_str[1]
-            # x = ['BITCOIN', 'ETHERUM', 'LITECOIN', 'BITCOINCASH']
-            x = ['BITCOIN', 'ETHERUM', 'LITECOIN']
+
+            balance = float("{:.2f}".format(total_balance))
+
+            x = ['BITCOIN', 'ETHERUM', 'LITECOIN', 'BITCOINCASH', 'NAIRA']
+            btc = str("{:.8f}".format(user.bitcoin_balance))
+            eth = str("{:.8f}".format(user.etherum_balance))
+            ltc = str("{:.8f}".format(user.litecoin_balance))
+            bch = str("{:.8f}".format(user.bitcoin_cash_balance))
+            local = str("{:.8f}".format(user.local_currency_balance))
 
             page = 'pages/dashboard.html'
             template = loader.get_template(page)
-            context = {'total_balance': total_balance, 'user': str(request.user), 'x': x, 'btc':btc, "eth":eth, 'ltc':ltc, "bch":bch, 'integer':integer, 'floating':floating}
+            context = {'total_balance': total_balance, 'user': str(request.user), 'x': x, 'btc': btc, "eth": eth,
+                       'ltc': ltc, "bch": bch,  'naira': local,  'integer': balance}
+            print(context)
             return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
         else:
@@ -159,10 +168,11 @@ def logout_view(request):
     return redirect(home_page)
 
 
-def about(request):
-    page = 'test.html'
+@api_view(['GET'])
+def confirm(request):
+    page = 'pages/confirm.html'
     template = loader.get_template(page)
-    return HttpResponse(template.render({'header': 'TESTING ABOUT VIEW'}, request), status=status.HTTP_200_OK)
+    return HttpResponse(template.render({'header': 'TESTING confirm VIEW'}, request), status=status.HTTP_200_OK)
 
 
 def services(request):

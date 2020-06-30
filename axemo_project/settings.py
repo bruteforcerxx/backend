@@ -25,7 +25,10 @@ SECRET_KEY = 'ns4!5^w_u=1!x1%#ucy(36a^i+2x$_-@qq*2(tfbhn=68a4zb^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '192.168.43.83',
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -128,3 +131,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/home/static/',
 ]
+

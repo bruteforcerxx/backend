@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i');
 
-*{
+/*{
   box-sizing:border-box;
   font-family: 'Space Mono', monospace;
 }
@@ -65,7 +64,7 @@ height: 190px;
 }
 
 .cardie__part{
-  box-shadow: 1px 1px #aaa3a3;
+  box-shadow: 0px 0px #aaa3a3;
     top: 0;
   position: absolute;
 z-index: 1000;
@@ -73,7 +72,7 @@ z-index: 1000;
   display: inline-block;
     width: 320px;
     height: 190px;
-    background-image: url('https://image.ibb.co/bVnMrc/g3095.png'), linear-gradient(to right bottom, #fd696b, #fa616e, #f65871, #f15075, #ec4879); /*linear-gradient(to right bottom, #fd8369, #fc7870, #f96e78, #f56581, #ee5d8a)*/
+    background-image: url(''), linear-gradient(266deg, rgba(68,38,189,1) 17%, rgba(73,32,196,1) 59%, rgba(104,28,203,1) 84%, rgba(145,70,189,1) 100%); /*linear-gradient(to right bottom, #fd8369, #fc7870, #f96e78, #f56581, #ee5d8a)*/
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
