@@ -165,7 +165,7 @@ def register(request):
 @api_view(['GET'])
 def logout_view(request):
     logout(request)
-    return redirect(home_page)
+    return redirect(login_user)
 
 
 @api_view(['GET'])

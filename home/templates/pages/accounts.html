@@ -93,18 +93,18 @@
                   <div class="custom-control custom-radio mb-4" style="margin-left: 40px" >
                     <input type="radio" value="axemo" id="customRadio2" name="platform" class="custom-control-input"/>
                    <label class="custom-control-label" for="customRadio2" style="width: 20px">
-                      <span class="badge badge-pill  badge-primary" style="width: 100px; top: -1px">Axemo</span></label>
+                      <span class="badge badge-pill  badge-secondary" style="width: 100px; top: -1px">Axemo</span></label>
                   </div>
 
                   <div class="custom-control custom-radio mb-4" style="margin-left: 40px" >
                     <input type="radio" value="coinbase" id="customRadio3" name="platform" class="custom-control-input"/>
                     <label class="custom-control-label" for="customRadio3" style="width: 20px">
-                      <span class="badge badge-pill  badge-info" style="width: 100px; top: -1px">Coinbase</span></label>
+                      <span class="badge badge-pill  badge-secondary" style="width: 100px; top: -1px">Coinbase</span></label>
                   </div>
                   <div class="custom-control custom-radio" style="margin-left: 40px" >
                     <input type="radio" value="luno" id="customRadio4" name="platform" class="custom-control-input"/>
                    <label class="custom-control-label" for="customRadio4" style="width: 20px">
-                      <span class="badge badge-pill  badge-primary" style="width: 100px; top: -1px">Luno</span></label>
+                      <span class="badge badge-pill  badge-secondary" style="width: 100px; top: -1px">Luno</span></label>
                   </div>
 
 
@@ -307,8 +307,11 @@
             {% for x in history %}
                       {%if x.type == "Debit" %}
                           <div>
-                              <span class="badge badge-lg  badge-dot mr-4" style="margin-left: 10px; margin-top: -4px">
+                              <div class="row" style="margin-left: 10px; width: 100%">
+                              <span class="badge badge-lg  badge-dot mr-4" style="margin-top: -4px">
                                                         <i class="bg-warning"></i>Debit</span>
+                                  <h5 style="margin-top: 4px; font-weight: 500; margin-left: 35px;">{{x.time}}</h5>
+                              </div>
 
                               <div class="row">
                                   <span class="text-danger mr-2" style="margin-left: 23px"><i class="fa fa-arrow-up"></i></span>
@@ -317,13 +320,17 @@
                               </div>
                               <div class="row" style="margin-top: -4px;">
                                   <h5 style=" font-weight: 500; margin-left: 42px;">To {{x.to}}</h5>
-                                  <h5 style="margin-top: 2px; font-weight: 500; margin-left: 35px;">20 may 23:45:00</h5>
+
                               </div>
-                              <hr style="margin-top: -8px; margin-bottom: 1px">
+                              <hr style="margin-top: -8px; margin-bottom: 1px; width: 90%">
                               {% elif x.type == "Credit"%}
                               <div>
-                              <span class="badge badge-lg  badge-dot mr-4" style="margin-left: 10px; margin-top: -4px">
+                                  <div class="row" style="margin-left: 10px;">
+                              <span class="badge badge-lg  badge-dot mr-4" style="margin-top: -4px">
                                                         <i class="bg-success"></i>Credit</span>
+                                      <h5 style="margin-top: 4px; font-weight: 500; margin-left: 35px;">{{x.time}}</h5>
+
+                                  </div>
 
                               <div class="row">
                                   <span class="text-success mr-2" style="margin-left: 23px"><i class="fa fa-arrow-down"></i></span>
@@ -332,9 +339,9 @@
                               </div>
                               <div class="row" style="margin-top: -4px;">
                                   <h5 style=" font-weight: 500; margin-left: 42px;">From {{x.from}}</h5>
-                                  <h5 style="margin-top: 2px; font-weight: 500; margin-left: 35px;">20 may 23:45:00</h5>
+
                               </div>
-                              <hr style="margin-top: -8px; margin-bottom: 1px">
+                              <hr style="margin-top: -8px; margin-bottom: 1px; width: 90%">
                                   {% else %}
                            {% endif %}
                            {% endfor %}

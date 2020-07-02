@@ -8,18 +8,21 @@ import random
 
 
 def get_agent_info(user):
-    agent = Agent.objects.get(name=user)
-    rank = agent.rank
-    code = agent.referral_code
+    agent_data = Agent.objects.get(name=user)
+
+    rank = agent_data.rank
+    code = agent_data.referral_code
+    earned = agent_data.total_earned
+    p_down_lines = eval(agent_data.primary_down_lines)
+    s_down_lines = eval(agent_data.total_primary_down_lines)
+    t_pdl = agent_data.total_primary_down_lines
+    t_sdl = agent_data.total_secondary_down_lines
     link = f'http://127.0.0.1:8000/home/register/{code}'
-    p_dl = eval(agent.primary_down_lines)
-    s_dl = eval(agent.secondary_down_lines)
-    t_pdl = agent.total_primary_down_lines
-    t_sdl = agent.total_secondary_down_lines
-    earned = agent.total_earned
-    info = {'rank': rank, 'link': link, 'code': code, 'pdl': p_dl, 'sdl': s_dl, 't_pdl': t_pdl, 't_sdl': t_sdl,
-            'earned': earned}
-    return info
+
+    context = {'rank': rank, 'code': code, 'earned': earned, 'p_down': p_down_lines,
+               's_down': s_down_lines, 'link': link}
+    print(context)
+    return context
 
 
 def get_amount(currency):
@@ -31,17 +34,20 @@ def get_amount(currency):
     amount = float(price['amount'])
     amount = 1500.00/amount
     amount = float("{:.8f}".format(amount))
+    print(amount)
     return amount
 
 
-def get_payment(cu, user, amount):
+def get_payment(cu, user, amount, currency):
     username = User.objects.get(username=user)
     user = UsersData.objects.get(user=username)
     hist = History.objects.get(user=username)
     letters = string.ascii_lowercase
     identity = ''.join(random.choice(letters) for _ in range(30))
 
-    param = {}
+    param = {'to': 'affiliate registration', 'amount': amount, 'desc': 'affiliate registration fee',
+             'currency': currency, 'platform': 'axemo', 'user': user, 'route': 'axemo', 'type': 'Debit',
+             'status': 'success', 'resolved': True}
     if cu == 'BTC':
         bal = user.bitcoin_balance
         if bal < amount:
@@ -121,8 +127,7 @@ def process_request(user, amount):
     p_ref.save()
 
     s_ref = User.objects.get(username=p_ref)
-    get_s_ref = UsersData.objects.get(user=s_ref)
-    s_ref = Agent.objects.filter(referral=get_s_ref)
+    s_ref = Agent.objects.filter(referral=s_ref)
     if len(s_ref) == 1:
         s_ref = s_ref[0]
         s_bal = s_ref.total_earned
@@ -183,3 +188,5 @@ def pay_for_upgrade(user):
             return 'upgraded successfully'
         else:
             return 'insufficient balance'
+    agent.save()
+

@@ -27,28 +27,23 @@
                 <div class="list-group list-group-flush">
                   <a href="#!" class="list-group-item list-group-item-action">
                     <div class="row align-items-center">
-                      <div class="col-auto">
-                        <!-- Avatar -->
-                        <img alt="Image placeholder" src="assets/img/theme/team-1.jpg" class="avatar rounded-circle">
-                      </div>
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
+                            <h4 class="mb-0 text-sm">    </h4>
                           </div>
                           <div class="text-right text-muted">
-                            <small>2 hrs ago</small>
+                            <small>    </small>
                           </div>
                         </div>
-                        <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
+                        <p class="text-sm mb-0">    </p>
                       </div>
                     </div>
                   </a>
                 </div>
-                        <!-- Avatar -->
+
                 <!-- View all -->
-                <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
-              </div>
+
             <li class="nav-item dropdown">
               <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="ni ni-ungroup" ></i>
@@ -56,40 +51,16 @@
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
                 <div class="row shortcuts px-4">
                   <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-red">
-                      <i class="ni ni-calendar-grid-58"></i>
+                    <span class="shortcut-media avatar rounded-circle bg-gradient-default">
+                      <img src="https://img.icons8.com/nolan/64/safe.png"/>
                     </span>
-                    <small>Calendar</small>
+                    <small style="margin-left: 7px">Vault</small>
                   </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
-                      <i class="ni ni-email-83"></i>
+                  <a href="{% url 'info' %}" class="col-4 shortcut-item">
+                    <span class="shortcut-media avatar rounded-circle bg-gradient-default">
+                      <img src="https://img.icons8.com/nolan/64/flow-chart.png"/>
                     </span>
-                    <small>Email</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-info">
-                      <i class="ni ni-credit-card"></i>
-                    </span>
-                    <small>Payments</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-green">
-                      <i class="ni ni-books"></i>
-                    </span>
-                    <small>Reports</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
-                      <i class="ni ni-pin-3"></i>
-                    </span>
-                    <small>Maps</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
-                      <i class="ni ni-basket"></i>
-                    </span>
-                    <small>Shop</small>
+                    <small>Affiliate</small>
                   </a>
                 </div>
               </div>
@@ -98,14 +69,18 @@
           <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
 
             <li class="nav-item dropdown">
-              <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true">
                 <div class="media align-items-center">
-                  <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="{% static 'assets/img/theme/team-4.jpg' %}">
-                  </span>
-                  <div class="media-body  ml-2  d-none d-lg-block">
-                    <span class="mb-0 text-sm  font-weight-bold">{{ user}}</span>
+                  <div>
+                    <span class="mb-0 text-sm  font-weight-bold"  style="margin-right: 10px">{{ user}}</span>
                   </div>
+                  <span class="avatar avatar-sm rounded-circle" style="background-color: #0027e3">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+width="24" height="24"
+viewBox="0 0 171 171"
+style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,171.99219v-171.99219h171.99219v171.99219z" fill="none"></path><path d="M85.99609,171.49609c-47.22035,0 -85.5,-38.27965 -85.5,-85.5v0c0,-47.22035 38.27965,-85.5 85.5,-85.5v0c47.22035,0 85.5,38.27965 85.5,85.5v0c0,47.22035 -38.27965,85.5 -85.5,85.5z" fill="#0027e3"></path><g fill="#000000"><path d="M85.49889,30.21c-15.11184,0 -27.36,12.24816 -27.36,27.36v4.56c0,15.11184 12.24816,27.36 27.36,27.36c15.11184,0 27.36,-12.24816 27.36,-27.36v-4.56c0,-15.11184 -12.24816,-27.36 -27.36,-27.36zM85.48998,103.17c-18.26736,0 -41.70576,9.88081 -48.45,18.64969c-4.16784,5.42184 -0.20028,13.27031 6.63516,13.27031h83.63859c6.83544,0 10.803,-7.84847 6.63516,-13.27031c-6.74424,-8.76432 -30.19155,-18.64969 -48.45891,-18.64969z"></path></g></g></svg>
+                  </span>
+
                 </div>
               </a>
               <div class="dropdown-menu  dropdown-menu-right ">
@@ -117,19 +92,11 @@
                   <span>My profile</span>
                 </a>
                 <a href="#!" class="dropdown-item">
-                  <i class="ni ni-settings-gear-65"></i>
-                  <span>Settings</span>
-                </a>
-                <a href="#!" class="dropdown-item">
-                  <i class="ni ni-calendar-grid-58"></i>
-                  <span>Activity</span>
-                </a>
-                <a href="#!" class="dropdown-item">
                   <i class="ni ni-support-16"></i>
                   <span>Support</span>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#!" class="dropdown-item">
+                <a href="{% url 'logout' %}" class="dropdown-item">
                   <i class="ni ni-user-run"></i>
                   <span>Logout</span>
                 </a>

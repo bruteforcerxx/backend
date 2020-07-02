@@ -1,6 +1,7 @@
 from django.test import TestCase
 import time
-# Create your tests here.
-from coinbase.wallet.client import Client
+import datetime
 
-currency = 'LTC'
+currentDT = datetime.datetime.now()
+x = str(currentDT)[:16]
+print(x)

@@ -1,4 +1,6 @@
 from django.test import TestCase
+from rave_python import Rave
+
 
 # Create your tests here.
 

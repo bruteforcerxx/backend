@@ -12,6 +12,7 @@ from django.shortcuts import redirect
 from transactions_history.models import History
 import time
 import hashlib
+import datetime
 
 # Create your views here.
 
@@ -97,24 +98,19 @@ def receive(request):
 @api_view(['POST', 'GET'])
 def check(request):
     try:
-
         if request.method == 'POST':
             try:
                 if request.session['session_timeout'] > time.time():
                     print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
-                    request.session['session_timeout'] = time.time() + 100000
+                    request.session['session_timeout'] = time.time() + 1000
 
                     pin = str(request.POST.get('pin' ''))
 
                     user = User.objects.get(username=request.user)
                     user_d = UsersData.objects.get(user=user)
 
-                    print(hashlib.sha256(pin.encode()).hexdigest())
-                    print(str(user_d.pin))
-                    print('pass')
-
                     if hashlib.sha256(pin.encode()).hexdigest() == str(user_d.pin):
-                        print('######################################')
+
                         try:
                             platform = request.POST.get('platform' '')
                             to = request.POST.get('destination' '')
@@ -127,8 +123,11 @@ def check(request):
 
                                 currency = request.session['currency']
 
+                                current_time = datetime.datetime.now()
+                                time_now = str(current_time)[:16]
+
                                 context = {'to': to, 'amount': amount, 'desc': 'desc', 'currency': currency,
-                                           'platform': platform, 'user': str(request.user)}
+                                           'platform': platform, 'user': str(request.user), 'time': time_now}
                                 request.session['data'] = context
                                 print(context)
                                 page = 'pages/confirm.html'

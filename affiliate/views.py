@@ -4,7 +4,7 @@ from django.template import loader
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login, authenticate
 from home.models import UsersData
 from .process import process_request, get_payment, get_agent_info, pay_for_upgrade, get_amount, transfer
 from .models import Agent
@@ -27,28 +27,18 @@ def info(request):
             user = User.objects.get(username=request.user)
             agent = Agent.objects.filter(name=user)
 
-            if len(agent) > 0:
-                context = get_agent_info(user)
-
-                page = 'agentinfo.html'
+            if len(agent) == 1:
+                page = 'pages/affiliate.html'
                 template = loader.get_template(page)
-                return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+                context = get_agent_info(user)
+                return Response(context)
+                # return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
             else:
-                page = 'agentreg.html'
+                context = {'message': 'not registered'}
+                page = 'pages/affiliate_reg.html'
                 template = loader.get_template(page)
-                agent_data = agent[0]
-                rank = agent_data.rank
-                code = agent_data.referral_code
-                earned = agent_data.total_earned
-                p_down_lines = agent_data.primary_down_lines
-                s_down_lines = agent_data.total_primary_downlines
-                link = f'http://127.0.0.1:8000/home/register/{code}'
-
-                context = {'rank': rank, 'code': code, 'earned': earned, 'p_down': p_down_lines,
-                           's_down': s_down_lines, 'link': link}
-                return HttpResponse(template.render(context, request),
-                                    status=status.HTTP_200_OK)
+                return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
         else:
             logout(request)
@@ -59,39 +49,10 @@ def info(request):
         return redirect('login')
 
 
-@api_view(['GET'])
-def payment_method(request):
-    page = 'register.html'
-    template = loader.get_template(page)
-    context = {'method': 'choose payment method'}
-    return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
-
-
-@api_view(['POST'])
-def payment(request):
-    request.session['currency'] = request.POST.get('currency', '')
-    print(request.session['currency'])
-    try:
-        if request.session['session_timeout'] > time.time():
-            print(f"time left = {request.session['session_timeout'] - time.time()} seconds")
-            request.session['session_timeout'] = time.time() + 600
-            page = 'regform.html'
-            template = loader.get_template(page)
-            return HttpResponse(template.render({'message': 'get pin'}, request), status=status.HTTP_200_OK)
-        else:
-            logout(request)
-            return redirect('login')
-
-    except Exception as e:
-        print(e)
-        logout(request)
-        return redirect('login')
-
-
 @api_view(['POST'])
 def debit_user(request):
     pin = str(request.POST.get('pin', ''))
-    currency = request.session['currency']
+    currency = request.POST.get('currency', '')
 
     user = User.objects.get(username=request.user)
     user_d = UsersData.objects.get(user=user)
@@ -100,7 +61,7 @@ def debit_user(request):
     if hashlib.sha256(pin.encode()).hexdigest() == str(user_d.pin):
         amount = get_amount(currency)
 
-        if get_payment(currency, request.user, amount) == 'success':
+        if get_payment(currency, request.user, amount, currency) == 'success':
             process_request(request.user, amount)
             context = 'successful'
         else:
@@ -195,7 +156,7 @@ def withdraw(request):
 
 @api_view(['GET'])
 def test(request):
-    page = 'pages/affiliate.html'
+    page = 'pages/affiliate_reg.html'
     template = loader.get_template(page)
     context = {'method': 'choose payment method'}
     return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
