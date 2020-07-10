@@ -10,6 +10,7 @@ from .models import UsersData
 from transactions_history.models import History
 from django.shortcuts import redirect
 import time
+from .process import bal_converter
 
 
 # Create your views here.
@@ -17,7 +18,7 @@ import time
 
 @api_view(['GET'])
 def home_page(request):
-    page = 'home.html'
+    page = 'landing.html'
     template = loader.get_template(page)
     logout(request)
     return HttpResponse(template.render({'header': 'TESTING ABOUT VIEW'}, request), status=status.HTTP_200_OK)
@@ -76,19 +77,21 @@ def dash(request):
 
             total_balance = btc + local + eth + ltc + bch
 
-            balance = float("{:.2f}".format(total_balance))
+            balance = str("{:.1f}".format(total_balance))
 
             x = ['BITCOIN', 'ETHERUM', 'LITECOIN', 'BITCOINCASH', 'NAIRA']
             btc = str("{:.8f}".format(user.bitcoin_balance))
             eth = str("{:.8f}".format(user.etherum_balance))
             ltc = str("{:.8f}".format(user.litecoin_balance))
             bch = str("{:.8f}".format(user.bitcoin_cash_balance))
-            local = str("{:.8f}".format(user.local_currency_balance))
+            local = str("{:.1f}".format(user.local_currency_balance))
+            local = bal_converter(local)
+            balance = bal_converter(balance)
 
             page = 'pages/dashboard.html'
             template = loader.get_template(page)
             context = {'total_balance': total_balance, 'user': str(request.user), 'x': x, 'btc': btc, "eth": eth,
-                       'ltc': ltc, "bch": bch,  'naira': local,  'integer': balance}
+                       'ltc': ltc, "bch": bch,  'naira': f'{local}0',  'integer': balance}
             print(context)
             return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 

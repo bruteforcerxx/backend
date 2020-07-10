@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'crypto_transactions.apps.CryptoTransactionsConfig',
     'affiliate.apps.AffiliateConfig',
     'transactions_history.apps.TransactionsHistoryConfig',
+    'deposit_withdraw.apps.DepositWithdrawConfig',
     'home.apps.HomeConfig',
     'django.contrib.admin',
     'django.contrib.auth',

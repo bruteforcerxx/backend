@@ -1,0 +1,1003 @@
+<!--
+=========================================================
+* Argon Dashboard - v1.2.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+
+
+* Copyright  Creative Tim (http://www.creative-tim.com)
+* Coded by www.creative-tim.com
+
+
+
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+{% extends 'pages/_base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'pages/_header.html' %}
+<!-- Header -->
+
+
+
+    <div class="header pb-6" style="width: 100; background-color: #0027e3">
+      <div class="container-fluid">
+          <div class="header-body">
+                      <div class="row justify-content-center">
+                      <h2 class="display-1 mt-1"  style="color: white; font-weight: 500">Naira account</h2>
+                      </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Page content -->
+
+
+     <!---------------------------------MODAL PAGES------------------------------------------>
+    <div class="container-fluid mt--6">
+      <div class="row justify-content-md-center">
+        <div class=" col ">
+          <div class="card">
+            <div class="card-header bg-transparent">
+                <div class="row justify-content-center">
+              <h3 class="mb-0" style="font-weight: 300">NGN {{local}}</h3>
+                    </div>
+            </div>
+              {% if status == 'success' %}
+              <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-bottom: -5px">
+                  <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                  <span class="alert-text"><strong>Success!</strong> {{message}}</span>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              {% elif status == 'failed' %}
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <span class="alert-icon"></span>
+                  <span class="alert-text"><strong>Error:</strong> {{message}}!</span>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+
+              {% endif %}
+            <div class="card-body">
+              <div class="row icon-examples">
+                <div class="container">
+                  <div class="row justify-content-center">
+                      <div class="col">
+                      <div class="row justify-content-center">
+                      <button type="button" class="btn btn-primary btn-icon btn btn-success" data-toggle="modal"
+                              data-target="#modal-deposit-naira" style="float: left; min-width: 130px">
+                        <span class="btn-inner--icon"><i class="fa fa-arrow-down"></i></span>
+                        <span class="btn-inner--text">Deposit</span>
+                      </button>
+
+                      <button type="button" class="btn  btn-icon btn-primary"  data-toggle="modal"
+                              data-target="#modal-withdraw"  style="float: right; min-width: 130px; background-color: #0027e3">
+                        <span class="btn-inner--icon"><i class="ni ni-money-coins"></i></span>
+                        <span class="btn-inner--text">Withdraw</span>
+                      </button>
+                      </div>
+                    <div class="row justify-content-center" style="margin-top: 15px">
+                      <button type="button" class="btn btn-primary btn-icon btn btn-primary" data-toggle="modal"
+                              data-target="#modal-platforms-naira" style="float: left; min-width: 130px;  background-color: #0027e3; margin-left: 0px">
+                        <span class="btn-inner--icon"><i class="ni ni-send"></i></span>
+                        <span class="btn-inner--text">Transfer</span>
+                      </button>
+
+                      <button type="button" class="btn  btn-icon btn-success"  data-toggle="modal"
+                              data-target=""  style="float: right; min-width: 130px; margin-left: 0px">
+                        <span class="btn-inner--icon"><i class="ni ni-curved-next"></i>
+                        </span>
+                        <span class="btn-inner--text">Exchange</span>
+                      </button>
+                      </div>
+                      </div>
+                  </div>
+                    <div>
+
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!---------------------------------------------------------NAIRA TRANSFER MODAL--------------------------------------------------->
+
+      <div class="modal fade" id="modal-platforms-naira" tabindex="-1" role="dialog" aria-labelledby="modal-notification"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                             <div class="col">
+                                 <h6 class="modal-title" id="modal-platforms-header">How do you want to transfer?</h6>
+                                 <h5 class="text-muted" style="margin-left: 0px">Please be aware that transfers directed towards a
+                                     bank account incurs a charge of 1.5% of the total amount sent. However transfers
+                                     directed towards any axemo user will be processed for free (no charges).</h5>
+                             </div>
+                   <h6 class="modal-title" id="modal-platform-naira-header"></h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-amount-bank-naira"  style="min-width: 250px">Bank account</button>
+                            <button type="button" class="btn" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-amount-axemo-naira" style="margin-top: 10px; color: white;
+                                background-color: #0027e3; min-width: 250px">Axemo</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+<!-----------------------------------------------bank account transfer--------------------------------------->
+  <form action='{% url "response" "bank-account-transfer" %}' method="post">
+      {% csrf_token %}
+            <div class="modal fade" id="modal-amount-bank-naira" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                   <h6 class="modal-title" id="modal-title-amount-bank-naira">How much would you like to transfer?</h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                      </div>
+                      <input class="form-control" name="bank-tf-amount" placeholder="Amount" type="text">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-platforms-naira">Previous</button>
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-address-bank-naira">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+                  <div class="modal fade" id="modal-address-bank-naira" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                             <div class="col">
+                                 <h6 class="modal-title" id="modal-method_header">Who would you like to send to?</h6>
+                                 <h5 class="text-muted" style="margin-left: 0px">Please provide a nigerian bank account number or your
+                                     transaction will not be processed</h5>
+                             </div>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                      </div>
+                      <input class="form-control" name="bank-tf-acc-num" placeholder="Account number" type="text">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-amount-bank-naira">Previous</button>
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-pin-bank-naira">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+                  <div class="modal fade" id="modal-pin-bank-naira" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                             <div class="col">
+                                 <h6 class="modal-title" id="modal-pin-header">Please provide your pin to continue.</h6>
+                                 <h5 class="text-muted" style="margin-left: 0px">Note: The pin required here is your axemo pin</h5>
+                             </div>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                      </div>
+                      <input class="form-control" name="bank-tf-password" placeholder="Password" type="password">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-address-bank-naira">Previous</button>
+                             <button type="submit" class="btn btn-primary">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  </form>
+
+
+
+<!---------------------------------------------------------axemo naira transfer ------------------------------------------>
+<form action='{% url "response" "axemo-account-transfer" %}' method="post">
+      {% csrf_token %}
+            <div class="modal fade" id="modal-amount-axemo-naira" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+
+                                 <h6 class="modal-title" id="modal-ax-header">How much would you like to send?</h6>
+
+
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                      </div>
+                      <input class="form-control" name="axemo-tf-amount" placeholder="Amount" type="text">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                    <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-platforms-naira">Previous</button>
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-address-axemo-naira">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+                  <div class="modal fade" id="modal-address-axemo-naira" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                      <div class="col">
+                          <h6 class="modal-title" id="modal-address-header">Who would you like to send to?</h6>
+                          <h5 class="text-muted" style="margin-left: 0px">Please provide a valid axemo email address or your
+                              transaction will not be processed</h5>
+                      </div>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                      </div>
+                      <input class="form-control" name="axemo-tf-account" placeholder="Email address" type="text">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-amount-axemo-naira">Previous</button>
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-pin-axemo-naira">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+                  <div class="modal fade" id="modal-pin-axemo-naira" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                      <div class="col">
+                          <h6 class="modal-title" id="modal-axemo-pin-header">Please provide your pin to continue.</h6>
+                          <h5 class="text-muted" style="margin-left: 0px">Note: The pin required here is your axemo pin</h5>
+                      </div>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                      </div>
+                      <input class="form-control" name="account" placeholder="Password" type="password">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-address-axemo-naira">Previous</button>
+                             <button type="submit" class="btn btn-primary">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+</form>
+
+
+
+
+
+<!-------------------------------------------------------------DEPOSIT MODAL--------------------------------------------------->
+
+  <div class="modal fade" id="modal-deposit-naira" tabindex="-1" role="dialog" aria-labelledby="modal-notification"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                   <h6 class="modal-title" id="modal-deposit-naira-header">How do you want to deposit money?</h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+                    <div class="modal-footer">
+                    <div class="row justify-content-center">
+                      <div class="col-sm">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-card-amount"  style="margin-left: 0px; min-width: 250px;
+                                 margin-top: 10px">Debit/Credit card</button>
+                          <button type="button" class="btn" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-account-amount" style="margin-right: 0px; margin-top: 10px;
+                                 color: white; background-color: #0027e3; min-width: 250px">Account number</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+<!---------------------------------------------------Naira card deposit modals-------------------------------------->
+<form action='{% url "response" "naira-card-deposit" %}' method="post">
+      {% csrf_token %}
+ <div class="modal fade" id="modal-card-amount" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                   <h6 class="modal-title" id="modal-title-card-amount">How much do you wan to deposit?</h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                      </div>
+                      <input class="form-control" name="card-amount" placeholder="Amount" type="text">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-deposit-naira">Previous</button>
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-card-name">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+                  <div class="modal fade" id="modal-card-name" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                   <h6 class="modal-title" id="modal-title-card-name">Please provide the name on your card.</h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                      </div>
+                      <input class="form-control" name="card-name" placeholder="card name" type="text">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-card-amount">Previous</button>
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-card-number">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+               <div class="modal fade" id="modal-card-number" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                      <div class="col">
+                          <h6 class="modal-title" id="modal-card-num-header">Please provide your card number.</h6>
+                          <h5 class="text-muted" style="margin-left: 0px">Note: we accept only nigerian issued Debit cards</h5>
+                          <div class="row" style="margin-left: 1px">
+                              <img src="https://img.icons8.com/color/48/000000/visa.png"/>
+                              <img src="https://img.icons8.com/color/48/000000/mastercard.png"/>
+                              <img style="max-height: 31px; margin-top: 9px;
+                               margin-left: 5px" src="{% static 'assets/img/icons/common/verve.png' %}">
+                          </div>
+                      </div>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
+                      </div>
+                      <input class="form-control" name="card-number" placeholder="card number" type="text">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-card-name">Previous</button>
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-card-date">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                     <div class="modal fade" id="modal-card-date" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                      <div class="col">
+                          <h6 class="modal-title" id="modal-title-card-date">Please provide your cards expiry date.</h6>
+                          <h5 class="text-muted" style="margin-left: 0px">Note: you can select any day of the
+                              month within your cards expiry month and year</h5>
+                      </div>
+
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <input class="form-control" name="card-date" placeholder="MM/YY" type="month">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-card-number">Previous</button>
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-cvv-pin">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                         <div class="modal fade" id="modal-cvv-pin" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                      <div class="col">
+                         <h6 class="modal-title" id="modal-title-cvv-pin">Please provide your card cvv and pin</h6>
+                          <h5 class="text-muted" style="margin-left: 0px">Note: The pin required here is the pin
+                              associated with your debit card</h5>
+                      </div>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+width="16" height="16"
+viewBox="0 0 171 171"
+style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,171.99219v-171.99219h171.99219v171.99219z" fill="none"></path><g fill="#cccccc"><path d="M26.71875,32.0625c-8.80884,0 -16.03125,7.22241 -16.03125,16.03125v74.8125c0,8.7671 7.22241,16.03125 16.03125,16.03125h117.5625c8.80884,0 16.03125,-7.22241 16.03125,-16.03125v-74.8125c0,-8.80884 -7.26415,-16.03125 -16.03125,-16.03125zM26.71875,42.75h117.5625c3.00586,0 5.34375,2.33789 5.34375,5.34375v5.34375h-128.25v-5.34375c0,-3.0476 2.29615,-5.34375 5.34375,-5.34375zM21.375,64.125h128.25v58.78125c0,3.00586 -2.33789,5.34375 -5.34375,5.34375h-117.5625c-3.00586,0 -5.34375,-2.33789 -5.34375,-5.34375zM37.40625,74.8125c-2.96411,0 -5.34375,2.37964 -5.34375,5.34375v32.0625c0,2.96411 2.37964,5.34375 5.34375,5.34375h16.03125v-10.6875h-10.6875v-21.375h10.6875v-10.6875zM64.125,74.8125v10.6875c0,0.58448 0.0835,1.21069 0.29224,1.75342l9.35156,26.7605c0.75146,2.12915 2.79712,3.54858 5.05151,3.54858h2.67188c2.2544,0 4.30005,-1.41943 5.05151,-3.54858l9.35156,-26.7605c0.20875,-0.54273 0.29224,-1.16895 0.29224,-1.75342v-10.6875h-10.6875v9.76905l-5.34375,15.27978l-5.34375,-15.27978v-9.76905zM106.875,74.8125v10.6875c0,0.58448 0.0835,1.21069 0.29224,1.75342l9.35156,26.7605c0.75146,2.12915 2.79712,3.54858 5.05151,3.54858h2.67188c2.2544,0 4.30005,-1.41943 5.05151,-3.54858l9.35156,-26.7605c0.20875,-0.54273 0.29224,-1.16895 0.29224,-1.75342v-10.6875h-10.6875v9.76905l-5.34375,15.27978l-5.34375,-15.27978v-9.76905z"></path></g></g></svg></span>
+                      </div>
+                      <input class="form-control" name="card-cvv" placeholder="cvv" type="password">
+                    </div>
+                      <div class="input-group input-group-merge input-group-alternative" style="margin-top: 10px">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                      </div>
+                      <input class="form-control" name="card-pin" placeholder="card pin" type="password">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-card-date">Previous</button>
+                             <button type="submit" class="btn btn-primary">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+</form>
+
+
+<!---------------------------------------------------Naira account number deposit modals-------------------------------------->
+<form action='{% url "response" "naira-account-deposit" %}' method="post">
+    {% csrf_token %}
+ <div class="modal fade" id="modal-account-amount" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+
+                   <h6 class="modal-title" id="modal-title-account-amount">How much do you wan to deposit?</h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                      </div>
+                      <input class="form-control" name="account-amount" placeholder="Amount" type="text">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-deposit-naira">Previous</button>
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-account-number">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+    <div class="modal fade" id="modal-account-number" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                   <h6 class="modal-title" id="modal-title-account-number">Please provide the account number you want to pay with.</h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-tag"></i></span>
+                      </div>
+                      <input class="form-control" name="account-pin" placeholder="Account number" type="text">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                        <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-deposit-naira">Previous</button>
+                             <button type="submit" class="btn btn-primary">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+</form>
+
+
+<!---------------------------------------------------Withdraw --------------------------------------------------------->
+<form action='{% url "response" "naira-withdraw" %}' method="post">
+    {% csrf_token %}
+ <div class="modal fade" id="modal-withdraw" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                      <div class="col">
+                          <h6 class="modal-title" id="modal-withdraw-header">How much do you want to withdraw?</h6>
+                          <h5 class="text-muted" style="margin-left: 0px">Note: withdrawals will be made directly to your default bank account</h5>
+                      </div>
+                   <h6 class="modal-title" id="modal-title-withdraw"></h6>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                      </div>
+                      <input class="form-control" name="withdraw-amount" placeholder="Amount" type="text">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                                data-target="#modal-withdraw-pin">Proceed</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+    <div class="modal fade" id="modal-withdraw-pin" tabindex="-1" role="dialog" aria-labelledby="modal-amount"
+                    aria-hidden="true">
+              <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-success">
+                  <div class="modal-header">
+                      <div class="col">
+                          <h6 class="modal-title" id="modal-withdraw-pin-header">Please your pin to continue</h6>
+                          <h5 class="text-muted" style="margin-left: 0px">Note: The pin required here is your axemo pin</h5>
+                      </div>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                   </button>
+                  </div>
+
+
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                      </div>
+                      <input class="form-control" name="withdraw-pin" placeholder="pin" type="password">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-sm" >
+                          <button type="button" class="btn btn-primary btn-warning" data-toggle="modal"
+                                data-dismiss="modal" data-target="#modal-withdraw">Previous</button>
+                          <button type="submit" class="btn btn-primary">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+    <div class="container-fluid mt--15">
+      <div class="row justify-content-md-center">
+        <div class=" col ">
+          <div class="card">
+            <div class="card-header">
+              <div class="row justify-content-center">
+              <h3 class="mb-200">ACTIVITIES</h3>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row icon-examples">
+                <div class="container">
+                  <div class="row justify-content-center">
+
+                       <div class="card card-stats" style=" margin-top: -25px;   min-height: 60px; min-width: 100%">
+            {% for x in history %}
+                      {%if x.type == "Debit" %}
+                          <div>
+                              <div class="row" style="margin-left: 10px; width: 100%">
+                              <span class="badge badge-lg  badge-dot mr-4" style="margin-top: -4px">
+                                                        <i class="bg-warning"></i>Debit</span>
+                                  <h5 style="margin-top: 4px; font-weight: 500; margin-left: 35px;">{{x.time}}</h5>
+                              </div>
+
+                              <div class="row">
+                                  <span class="text-danger mr-2" style="margin-left: 23px"><i class="fa fa-arrow-up"></i></span>
+                              <h5 style="margin-top: 2px; font-weight: 500; margin-left: -3px;">{{symbol}} -{{x.amount}}</h5>
+
+                              </div>
+                              <div class="row" style="margin-top: -4px;">
+                                  <h5 style=" font-weight: 500; margin-left: 42px;">To {{x.to}}</h5>
+
+                              </div>
+                              <hr style="margin-top: -8px; margin-bottom: 1px; width: 90%">
+                              {% elif x.type == "Credit"%}
+                              <div>
+                                  <div class="row" style="margin-left: 10px;">
+                              <span class="badge badge-lg  badge-dot mr-4" style="margin-top: -4px">
+                                                        <i class="bg-success"></i>Credit</span>
+                                      <h5 style="margin-top: 4px; font-weight: 500; margin-left: 35px;">{{x.time}}</h5>
+
+                                  </div>
+
+                              <div class="row">
+                                  <span class="text-success mr-2" style="margin-left: 23px"><i class="fa fa-arrow-down"></i></span>
+                              <h5 style="margin-top: 2px; font-weight: 500; margin-left: -3px;">{{symbol}} {{x.amount}}</h5>
+
+                              </div>
+                              <div class="row" style="margin-top: -4px;">
+                                  <h5 style=" font-weight: 500; margin-left: 42px;">From {{x.from}}</h5>
+
+                              </div>
+                              <hr style="margin-top: -8px; margin-bottom: 1px; width: 90%">
+                                  {% else %}
+                           {% endif %}
+                           {% endfor %}
+                       </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+  <!-- Optional JS -->
+  <script src="../assets/vendor/clipboard/dist/clipboard.min.js"></script>
+  <!-- Argon JS -->
+  <script src="../assets/js/argon.js?v=1.2.0"></script>
+  {% endblock %}
+
+
+

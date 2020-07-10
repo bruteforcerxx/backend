@@ -13,8 +13,7 @@ start = time.time()
 rave = Rave(public_key, secret_key, usingEnv=False)
 
 # Payload with pin
-payload = {
-  "cardno": "5531886652142950",
+payload = { "cardno": "5531886652142950",
   "cvv": "564",
   "expirymonth": "09",
   "expiryyear": "32",
@@ -47,8 +46,9 @@ print(res)
 
 start2 = time.time()
 
-rave.Card.validate(res["flwRef"], "12345")
-res = rave.Card.verify(res["txRef"])
+# rave.Card.validate(res["flwRef"], "12345")
+res = rave.Card.verify("FLW-MOCK-f6a5ad7946930356a38cefa6be3c43a8")
+print(res)
 
 start_2 = time.time() - start2
 print(start_2)

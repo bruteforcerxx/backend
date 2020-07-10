@@ -23,8 +23,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('transactions/', include('crypto_transactions.urls')),
-    path('home/', include('home.urls')),
-    path('affiliate/', include('affiliate.urls'))
+    path('', include('home.urls')),
+    path('affiliate/', include('affiliate.urls')),
+    path('fiat/', include('deposit_withdraw.urls'))
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

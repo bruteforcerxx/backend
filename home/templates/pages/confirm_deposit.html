@@ -1,0 +1,88 @@
+<!--
+=========================================================
+* Argon Dashboard - v1.2.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+
+
+* Copyright  Creative Tim (http://www.creative-tim.com)
+* Coded by www.creative-tim.com
+
+
+
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+{% extends 'pages/_base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'pages/_header.html' %}
+<!-- Header -->
+        <div class="header pb-6" style="width: 100; background-color:  #0027e3">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <div class="container">
+                  <div class="row justify-content-center">
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+
+
+     <!---------------------------------Confirmation page PAGES------------------------------------------>
+    <div class="container-fluid mt--6">
+      <div class="row justify-content-md-center">
+        <div class=" col ">
+          <div class="card">
+            <div class="card-header">
+              <div class="row justify-content-center">
+                <h3 class="mb-0" style="font-weight: 500">Please confirm OTP</h3>
+              </div>
+            </div>
+
+
+
+            <div class="card-body">
+              <div class="container">
+                <h5 class="text-muted" style="margin-bottom: 10px">An otp was sent to the number
+                  associated with the account you are attempting to pay with. please fill out the entry with that otp to confirm.</h5>
+
+
+<form action='{% url "otp-validate" %}' method="post">
+      {% csrf_token %}
+                <div class="p-4 bg-secondary">
+                  <input type="text" class="form-control form-control-alternative" name="otp" placeholder="Enter otp">
+                </div>
+
+                <div class="row justify-content-center">
+                <button type="submit" class="btn btn-block btn-icon btn-success"  style=" margin-top: 20px; max-height: 50px">
+                  <span class="btn-inner--text">Submit</span>
+                </button>
+                  <a href="{% url 'naira' %}">
+                            <button type="button" class="btn btn-block btn-icon btn-danger" style=" margin-top: 20px; max-height: 50px">
+                              <span class="btn-inner--text">Abort</span>
+                </button>
+                  </a>
+
+                </div>
+</form>
+
+
+
+              </div>
+            </div>
+
+
+
+  <!-- Optional JS -->
+  <script src="../assets/vendor/clipboard/dist/clipboard.min.js"></script>
+  <!-- Argon JS -->
+  <script src="../assets/js/argon.js?v=1.2.0"></script>
+  {% endblock %}

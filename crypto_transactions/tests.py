@@ -1,12 +1,12 @@
 from django.test import TestCase
 from rave_python import Rave
+import requests
 
 
 # Create your tests here.
 
-x = '3621236.00'
-url('https://image.ibb.co/bVnMrc/g3095.png'),
-print(len(x))
+x = '382982828.00'
+
 if len(x) == 7:
     a = x[0]
     b = x[1:]
@@ -24,7 +24,30 @@ elif len(x) == 9:
     print(c)
 elif len(x) == 10:
     a = x[0]
-    b = x[0:3]
-    c = x[3:]
+    b = x[1:4]
+    c = x[4:]
     d = f'{a},{b},{c}'
-    print(c)
+    print(20)
+    print(d)
+    print(x)
+elif len(x) == 11:
+    a = x[:2]
+    b = x[2:5]
+    c = x[5:]
+    d = f'{a},{b},{c}'
+    print(20)
+    print(d)
+    print(x)
+elif len(x) == 12:
+    a = x[:2]
+    b = x[2:5]
+    c = x[5:]
+    d = f'{a},{b},{c}'
+    print(20)
+    print(d)
+    print(x)
+else:
+    print(x)
+
+# fee = requests.get('https://bitcoinfees.earn.com/api/v1/fees/recommended').json()
+# print(fee)

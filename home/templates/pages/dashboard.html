@@ -17,8 +17,8 @@
                     <center>
                     <span>
                         <h3 class="text-muted  mt-10" style="margin-bottom: -10px; font-weight: 400;">Balance</h3>
-                        <h1 class="display-1 mt-1" style="color: white; font-weight: 300;
-                        background-color: #0027e3;">₦ {{ integer }}0</h1>
+                        <h1 class="display-1 mt-1" style="color: white; font-weight: 500;
+                        background-color: #0027e3;">NGN {{ integer }}0</h1>
                     </span>
                         </center>
                 </div>
@@ -68,6 +68,42 @@
                       <div class="cardie__black-line">
                       </div>
                       <div class="cardie__back-content">
+                          {% if c == 'NAIRA' %}
+                             <a href="{% url 'naira' %}">
+                              <button type="button" style="font-size: .875rem;
+    font-weight: 600;
+    line-height: -5;
+    width: 100% ;
+    height: 35px;
+    display: inline-block;
+
+    padding: .625rem 1.25rem;
+
+    cursor: pointer;
+    -webkit-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color
+     .15s ease-in-out, box-shadow .15s ease-in-out;
+    text-align: center;
+    vertical-align: middle;
+
+    color: #525f7f;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    background-color: transparent;  color: #fff;
+    border-color: #fb6340;
+    background-color: #fb6340;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    color: #fff;
+    border-color: #0027e3;
+    background-color:  #0027e3;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    color:  # fff;
+    border - color:  #  #0027e3;
+    background-color: #0027e3;">Tap here to use this account</button>
+                          </a>
+                          {% else %}
                           <a href="{% url 'crypto' c%}">
                               <button type="button" style="font-size: .875rem;
     font-weight: 600;
@@ -102,6 +138,7 @@
     border - color:  #  #0027e3;
     background-color: #0027e3;">Tap here to use this account</button>
                           </a>
+                          {% endif %}
                           <img class="cardie__back-square cardie__square" src="">
                           <img class="cardie__back-logo cardie__logo" src="">
                       </div>
@@ -165,7 +202,7 @@
                               </iframe></div>
                       </div>
                       <div class="row justify-content-center" style="margin-top: 30px; margin-bottom: -20px" >
-                  <h1 style="font-weight: 400; min-width: 100% ">News feed</h1>
+                  <h1 style="font-weight: 600; min-width: 100% ">Highlights</h1>
                 </div>
                       <div class="card-body" style="min-width: 100%">
                           <script type="text/javascript">

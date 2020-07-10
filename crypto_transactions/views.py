@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from .models import TransferForm
 from rest_framework import status
 from django.template import loader
-from .process import coinbase, luno, local, get_address
+from .process import coinbase, luno, local, get_address, bal_converter
 from django.contrib.auth import logout
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -36,28 +36,37 @@ def crypto(request, currency):
             eth = float(user.etherum_balance)
             ltc = float(user.litecoin_balance)
             bch = float(user.bitcoin_cash_balance)
-            ngn = float(user.local_currency_balance)
+            ngn = bal_converter(str(user.local_currency_balance))
 
             hist = History.objects.get(user=logged_user)
             print('*'*500)
             history = []
+            symbol = None
             if currency == 'BITCOIN':
                 for h, i in eval(hist.btc_history).items():
                     history.append(i)
+                    symbol = 'BTC'
             elif currency == 'ETHERUM':
                 for h, i in eval(hist.eth_history).items():
                     history.append(i)
+                    symbol = 'ETH'
             elif currency == 'LITECOIN':
                 for h, i in eval(hist.ltc_history).items():
                     history.append(i)
+                    symbol = 'LTC'
             elif currency == 'BITCOINCASH':
                 for h, i in eval(hist.bch_history).items():
                     history.append(i)
+                    symbol = 'BCH'
+            elif currency == 'NAIRA':
+                for h, i in eval(hist.ngn_history).items():
+                    history.append(i)
+                    symbol = 'NGN'
 
             request.session['currency'] = currency
             history.reverse()
             context = {'btc': btc, 'eth': eth, 'ltc': ltc, 'bch': bch, 'local': ngn,
-                       'currency': currency.capitalize(), 'history': history}
+                       'currency': currency.capitalize(), 'history': history, 'symbol': symbol}
             return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
         else:
@@ -79,10 +88,15 @@ def receive(request):
 
             currency = request.session['currency']
 
-            page = 'address.html'
+            page = 'pages/adress.html'
+
             template = loader.get_template(page)
 
-            context = {'address': get_address(request.user, currency)}
+            address = get_address(request.user, currency)
+            qr = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={address}"
+
+            context = {'address': address, 'source': qr, 'currency': currency.capitalize()}
+
             return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
         else:
@@ -91,8 +105,9 @@ def receive(request):
 
     except Exception as e:
         print(e)
-        logout(request)
-        return redirect('login')
+        # logout(request)
+        # return redirect('login')
+        return Response(str(e))
 
 
 @api_view(['POST', 'GET'])

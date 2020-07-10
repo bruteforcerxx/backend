@@ -1,0 +1,88 @@
+<!--
+=========================================================
+* Argon Dashboard - v1.2.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+
+
+* Copyright  Creative Tim (http://www.creative-tim.com)
+* Coded by www.creative-tim.com
+
+
+
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+{% extends 'pages/_base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'pages/_header.html' %}
+<!-- Header -->
+    <div class="header pb-6" style="width: 100; background-color: #0027e3">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+
+
+     <!---------------------------------MODAL PAGES------------------------------------------>
+    <div class="container-fluid mt--6">
+      <div class="row justify-content-md-center">
+        <div class=" col ">
+          <div class="card">
+            <div class="card-header bg-transparent" >
+                <div class="row justify-content-center">
+              <h3 class="mb-0">{{ currency }} address</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <img src='{{ source }}'>
+                </div>
+                <div class="row justify-content-center" style="margin-top: 20px">
+                    <span class="text-muted">Address</span>
+                </div>
+                <div class="row justify-content-center" style="margin-top: 10px">
+                    <p id="address" style="font-size: 90%">{{ address }}</p>
+
+                </div>
+                <div class="row justify-content-center" style="margin-top: 10px">
+                    <button  class="btn btn-icon btn-success"
+                            data-container="body" data-toggle="popover" data-color="default" data-placement="top"
+                            data-content="Address copied" onclick="copyToClipboard('#address')">
+                        <span class="btn-inner--icon"><i class="ni ni-ungroup"></i></span>
+                        <span class="btn-inner--text">Copy</span>
+                      </button>
+                    <script>
+function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
+
+</script>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+  <!-- Optional JS -->
+  <script src="../assets/vendor/clipboard/dist/clipboard.min.js"></script>
+  <!-- Argon JS -->
+  <script src="../assets/js/argon.js?v=1.2.0"></script>
+  {% endblock %}

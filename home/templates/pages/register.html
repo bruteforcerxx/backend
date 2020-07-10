@@ -13,10 +13,10 @@
 {% load static %}
 
 {% block content %}
-<body class="bg-default">
+<body class="bg-default" style="background-color: #0027e3">
   <!-- Navbar -->
   <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
-    <div class="container">
+    <div class="container" style="background-color: #0027e3">
       <a class="navbar-brand" href="dashboard.html">
         <img src="../assets/img/brand/white.png">
       </a>
@@ -41,18 +41,8 @@
         </div>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a href="dashboard.html" class="nav-link">
-              <span class="nav-link-inner--text">Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="login.html" class="nav-link">
+            <a href="{% url 'login' %}" class="nav-link">
               <span class="nav-link-inner--text">Login</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="register.html" class="nav-link">
-              <span class="nav-link-inner--text">Register</span>
             </a>
           </li>
         </ul>
@@ -82,14 +72,6 @@
               <span class="nav-link-inner--text d-lg-none">Github</span>
             </a>
           </li>
-          <li class="nav-item d-none d-lg-block ml-lg-4">
-            <a href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=ad_upgrade_pro" target="_blank" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon">
-                <i class="fas fa-shopping-cart mr-2"></i>
-              </span>
-              <span class="nav-link-inner--text">Upgrade to PRO</span>
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -97,13 +79,13 @@
   <!-- Main content -->
   <div class="main-content">
     <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9"style="background: linear-gradient(to bottom left, #500852 0%, #4D1C50 100%) !important;">
+    <div class="header py-7 py-lg-8 pt-lg-9" style="background-color: #0027e3 !important;">
       <div class="container">
         <div class="header-body text-center mb-7">
           <div class="row justify-content-center">
             <div class="col-xl-5 col-lg-6 col-md-8 px-5">
               <h1 class="text-white">Create an account</h1>
-              <p class="text-lead text-white">Signup with Axemo to create an account now.</p>
+              <p class="text-lead text-white">Create a free account with us</p>
             </div>
           </div>
         </div>

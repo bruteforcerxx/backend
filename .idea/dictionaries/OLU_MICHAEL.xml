@@ -8,16 +8,22 @@
       <w>axemo</w>
       <w>bitcoincash</w>
       <w>blockchain</w>
+      <w>cardno</w>
       <w>coinbase</w>
       <w>csrfmiddlewaretoken</w>
       <w>eccede</w>
       <w>endfor</w>
       <w>etherum</w>
+      <w>expirymonth</w>
+      <w>expiryyear</w>
+      <w>firstname</w>
       <w>gbrr</w>
       <w>instascan</w>
+      <w>lastname</w>
       <w>litecoin</w>
       <w>luno</w>
       <w>naira</w>
+      <w>phonenumber</w>
       <w>qllin</w>
       <w>qrcam</w>
       <w>regform</w>

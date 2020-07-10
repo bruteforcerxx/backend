@@ -6,6 +6,6 @@ urlpatterns = [
     path('charge/', views.debit_user, name='charge'),
     path('upgrade/', views.upgrade, name='upgrade'),
     path('withdraw/', views.withdraw, name='withdraw'),
-    path('test/', views.test, name='test')
+    path('test/', views.test, name='test'),
 
 ]

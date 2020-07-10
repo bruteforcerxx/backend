@@ -156,7 +156,10 @@ def withdraw(request):
 
 @api_view(['GET'])
 def test(request):
-    page = 'pages/affiliate_reg.html'
-    template = loader.get_template(page)
-    context = {'method': 'choose payment method'}
-    return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+    if request.method == 'GET':
+        page = 'pages/adress.html'
+        template = loader.get_template(page)
+        context = {'method': 'choose payment method'}
+        return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+
+

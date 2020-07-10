@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+
+<html lang="zxx" class="js">
+<head>
+    {% load static %}
+
+    <meta charset="utf-8">
+    <meta name="author" content="Softnio">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="axemo wallet">
+    <!-- Fav Icon -->
+    <link rel="shortcut icon" href="images/favicon.png' %}"><!-- Site Title  --><title>Axemo</title><!-- Vendor Bundle CSS -->
+    <link rel="stylesheet" href="{% static 'statics_land/assets/css/vendor.bundlee222.css' %} ">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'statics_land/assets/css/stylee222.css' %}">
+    <link rel="stylesheet" href="{% static 'statics_land/assets/css/theme-orangee222.css' %}" id="layoutstyle">
+    <meta name="theme-color" content="#0027e3">
+  <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#0027e3">
+  <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#0027e3">
+
+</head>
+<body class="theme-dark io-zinnia" data-spy="scroll" data-target="#mainnav" data-offset="80"><!-- Header -->
+<header class="site-header is-sticky"><!-- Place Particle Js -->
+    <div id="particles-js" class="particles-container particles-js"></div><!-- Navbar -->
+    <div class="navbar navbar-full navbar-expand-lg is-transparent" id="mainnav"><a class="navbar-brand animated"
+                                                                                    data-animate="fadeInDown"
+                                                                                    data-delay=".65"
+                                                                                    href="index.html"><img
+            class="logo logo-dark" alt="logo" src="{% static 'statics_land/images/logo.png' %}" srcset="images/logo2x.png 2x"><img
+            class="logo logo-light" alt="logo" src="{% static 'statics_land/images/logo-full-white.png' %}"
+            srcset="images/logo-full-white2x.png 2x"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"><span
+                class="navbar-toggler-icon"><span class="ti ti-align-justify"></span></span></button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarToggle">
+            <ul class="navbar-nav animated remove-animation" data-animate="fadeInDown" data-delay=".35">
+                <li class="nav-item"><a class="nav-link menu-link" href="#about">About Us<span
+                        class="sr-only">(current)</span></a></li>
+                <li class="nav-item"><a class="nav-link menu-link" href="#benifits">Benefits</a></li>
+                <li class="nav-item"><a class="nav-link menu-link" href="#tokenSale">Why choose us?</a></li>
+                <li class="nav-item"><a class="nav-link menu-link" href="#faq">Faqs</a></li>
+                <li class="nav-item"><a class="nav-link menu-link" href="#contact">Contact</a></li>
+            </ul>
+
+        </div>
+    </div><!-- End Navbar --><!-- Banner/Slider -->
+    <div id="header" class="banner banner-zinnia">
+        <div class="ui-shape ui-shape-light ui-shape-header"></div>
+        <div class="container">
+            <div class="banner-content">
+                <div class="row align-items-center text-center justify-content-center">
+                    <div class="col-sm-10 col-md-12 col-lg-10">
+                        <div class="header-txt tab-center mobile-center"><h1 class="animated" data-animate="fadeInUp"
+                                                                             data-delay="1.25">Buy, Sell, Send, and Receive
+                        </h1>
+
+                            <div class="gaps size-1x d-none d-md-block"></div>
+                            <p class="lead animated" data-animate="fadeInUp" data-delay="1.35">Join us to experience financial freedom<br class="d-none d-sm-block"> worldwide</p>
+                            <span class="lead animated" data-animate="fadeInUp" data-delay="1.35">We support:</span>
+                            <div class="gaps size-1x d-none d-md-block"></div>
+                            <div class="row animated justify-content-center" data-animate="fadeInUp" data-delay="1.35"
+                                 style="margin-top: 10px">
+                                <li style="margin-left: 10px">Bitcoin</li>
+                                <li style="margin-left: 10px">Ethereum</li>
+                                <li style="margin-left: 10px">Bitcoin Cash</li>
+                                <li style="margin-left: 10px">Litecoin</li>
+                                <li style="margin-left: 10px">Nigerian Naira</li>
+                            </div>
+
+                            <div class="row justify-content-center">
+                            <a href="{% url 'register' %}">
+                            <button type="button" class="btns btns-success"  style="margin-top: 80px; min-width: 400px; min-height: 40px">
+                                <span class="btn-inner--text" style="font-size: 16px; ">Get a Free account</span>
+                            </button>
+                            </a>
+                            </div>
+
+                            <div class="row justify-content-center">
+                            <a href="{% url 'login' %}">
+                            <button type="button" class="btns btn-secondary" style="margin-top: 20px; min-width: 400px; min-height: 40px">
+                                <span class="btn-inner--text" style="font-size: 16px">Login</span>
+                            </button>
+                            </a>
+                            </div>
+
+                        </div>
+                    </div><!-- .col  --></div><!-- .row  --></div><!-- .banner-content  --></div><!-- .container  -->
+    </div><!-- End Banner/Slider -->
+
+    <!-- Start Section -->
+<div class="section section-pad services-section section-bg" id="services">
+    <div class="ui-shape ui-shape-s4"></div>
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-6 col-sm-8">
+                <div class="section-head-s7"><h2 class="section-title-s7 animated" data-animate="fadeInUp"
+                                                 data-delay=".1">Our Technology Services</h2>
+
+                    <p class="animated" data-animate="fadeInUp" data-delay=".2">At vero eos et accusamus et iusto odio
+                        dignissimos ducimus qui blan ditiis praes entium volup tatum deleniti.</p></div>
+            </div>
+
+        </div>
+        <div class="row align-items-center">
+            <div class="col-lg-7 res-m-bttm">
+                <div class="row justify-content-between text-center text-lg-left">
+                    <div class="col-xl-5 col-md-6">
+                        <div class="service-item animated" data-animate="fadeInUp" data-delay=".4">
+                            <div class="service-icon mx-auto mx-lg-0"><img src="{% static 'statics_land/images/zinnia/service-icon-a.png' %}"
+                                                                           alt="icon"></div>
+                            <h5 class="service-title">Easy to Buy &amp; Sale Token</h5>
+
+                            <p>Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, sed do eiusm od tempor
+                                incididunt.</p></div>
+                    </div><!-- .col -->
+                    <div class="col-xl-5 col-md-6">
+                        <div class="service-item animated" data-animate="fadeInUp" data-delay=".5">
+                            <div class="service-icon mx-auto mx-lg-0"><img src="{% static 'statics_land/images/zinnia/service-icon-b.png' %}"
+                                                                           alt="icon"></div>
+                            <h5 class="service-title">Responsive Design</h5>
+
+                            <p>Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, sed do eiusm od tempor
+                                incididunt.</p></div>
+                    </div><!-- .col -->
+                    <div class="col-xl-5 col-md-6">
+                        <div class="service-item animated" data-animate="fadeInUp" data-delay=".6">
+                            <div class="service-icon mx-auto mx-lg-0"><img src="{% static 'statics_land/images/zinnia/service-icon-c.png' %}"
+                                                                           alt="icon"></div>
+                            <h5 class="service-title">Easy to Communicate</h5>
+
+                            <p>Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, sed do eiusm od tempor
+                                incididunt.</p></div>
+                    </div><!-- .col -->
+                    <div class="col-xl-5 col-md-6">
+                        <div class="service-item animated" data-animate="fadeInUp" data-delay=".7">
+                            <div class="service-icon mx-auto mx-lg-0"><img src="{% static 'statics_land/images/zinnia/service-icon-d.png' %}"
+                                                                           alt="icon"></div>
+                            <h5 class="service-title">Safe &amp; Secure</h5>
+
+                            <p>Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, sed do eiusm od tempor
+                                incididunt.</p></div>
+                    </div><!-- .col --></div><!-- .row -->
+                <ul class="btns text-center text-lg-left animated" data-animate="fadeInUp" data-delay=".8">
+                    <li><a href="#" class="btn btn-sm">Download Now</a></li>
+                    <li><a href="#"><em class="fab fa-apple"></em></a><a href="#"><em class="fab fa-android"></em></a><a
+                            href="#"><em class="fab fa-windows"></em></a></li>
+                </ul>
+            </div><!-- .col -->
+            <div class="col-lg-5 order-first order-lg-last res-m-bttm">
+            </div><!-- .col --></div><!-- .row --></div><!-- .container --></div><!-- End Section -->
+</header>
+<div class="section section-pad about-section no-pb section-bg" id="about">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-10">
+                <div class="section-head-s7"><h2 class="section-title-s7 animated" data-animate="fadeInUp"
+                                                 data-delay=".1">About Us</h2>
+
+                    <p class="lead animated" data-animate="fadeInUp" data-delay=".2">Lorem ipsum dolor sit amet,
+                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna. At vero
+                        eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                        deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                        provident, similique sunt in culpa qui officia deserunt mollitia animi.</p></div>
+            </div>
+        </div>
+        <div class="row justify-content-center text-center">
+            <div class="col-md-8">
+                <div class="video-box-s3 animated" data-animate="fadeInUp" data-delay=".3"><img
+                        src="{% static 'statics_land/images/zinnia/video-cover.png' %}" alt="cover"><a
+                        href="https://www.youtube.com/watch?v=SSo_EIwHSd4" class="play-btn-s3 video-play"><img
+                        src="{% static 'statics_land/images/zinnia/play-icon.png' %}" alt="icon"></a></div>
+            </div>
+        </div>
+    </div>
+</div><!-- End Section --><!-- Start Section -->
+<!-- End Section --><!-- Start Section -->
+<div class="section section-pad prblmsltn-section section-bg-alt" id="benifits">
+    <div class="ui-shape ui-shape-s2"></div>
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-6 col-sm-8">
+                <div class="section-head-s7" style="margin-top: 80px"><h2 class="section-title-s7 animated" data-animate="fadeInUp"
+                                                 data-delay=".1">Modern financial management Problems &amp; Solutions</h2>
+
+                    <p class="animated" data-animate="fadeInUp" data-delay=".2">At vero eos et accusamus et iusto odio
+                        dignissimos ducimus qui blan ditiis praes entium volup tatum deleniti.</p></div>
+            </div>
+        </div>
+        <div class="prblmsltn-list">
+            <div class="prblmsltn-item">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 animate-left delay-5ms">
+                        <div class="prblm-item"><h2 class="prblm-title">Problem</h2><h5 class="prblm-subtitle">
+                            Centralize Network</h5>
+                            <ul class="prblm-points">
+                                <li>What is the crypto tech? Lorem ipsum dolor sit amet, consectetur.</li>
+                                <li>Natural Language Understanding</li>
+                                <li>How to network with other investors / like-minded people?</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 animate-right delay-7ms">
+                        <div class="sltn-item"><h2 class="sltn-title">Solution</h2><h5 class="sltn-subtitle">
+                            Decentralize Network</h5>
+                            <ul class="sltn-points">
+                                <li>What is the crypto tech? Lorem ipsum dolor sit amet, consectetur.</li>
+                                <li>Natural Language Understanding</li>
+                                <li>How to network with other investors / like-minded people?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="prblmsltn-item">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 animate-left delay-5ms">
+                        <div class="prblm-item"><h2 class="prblm-title">Problem</h2><h5 class="prblm-subtitle">
+                            Centralize Network</h5>
+                            <ul class="prblm-points">
+                                <li>What is the crypto tech? Lorem ipsum dolor sit amet, consectetur.</li>
+                                <li>Natural Language Understanding</li>
+                                <li>How to network with other investors / like-minded people?</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 animate-right delay-7ms">
+                        <div class="sltn-item"><h2 class="sltn-title">Solution</h2><h5 class="sltn-subtitle">
+                            Decentralize Network</h5>
+                            <ul class="sltn-points">
+                                <li>What is the crypto tech? Lorem ipsum dolor sit amet, consectetur.</li>
+                                <li>Natural Language Understanding</li>
+                                <li>How to network with other investors / like-minded people?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- End Section --><!-- Start Section -->
+<div class="section section-pad token-sale-section section-bg-zinnia" id="tokenSale">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-6">
+                <div class="section-head-s7"><h2 class="section-title-s7 animated" data-animate="fadeInUp"
+                                                 data-delay=".1">Why choose us?</h2></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tokdis-list">
+            <div class="row text-center text-lg-left">
+                <div class="col-md">
+                    <div class="tokdis-item animated" data-animate="fadeInUp" data-delay=".2">
+                        <span>Tokens Offered</span><h5>20M</h5></div>
+                </div><!-- .col -->
+                <div class="col-md">
+                    <div class="tokdis-item animated" data-animate="fadeInUp" data-delay=".3"><span>Soft Cap (Public ICO)</span>
+                        <h5>$4M</h5></div>
+                </div><!-- .col -->
+                <div class="col-md">
+                    <div class="tokdis-item animated" data-animate="fadeInUp" data-delay=".4"><span>Hard Cap</span><h5>
+                        20 million</h5></div>
+                </div><!-- .col -->
+                <div class="col-lg-4">
+                    <div class="tokdis-item animated" data-animate="fadeInUp" data-delay=".5">
+                        <span>Tokens Distributed</span><h5>30 days after token sale ends</h5></div>
+                </div><!-- .col --></div><!-- .row --></div><!-- .tokdis-list --></div><!-- .container -->
+    <div class="gaps size-2x d-none d-md-block"></div>
+    <div class="gaps size-2x"></div>
+    <div class="toktmln-list">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="toktmln-item animated" data-animate="fadeInUp" data-delay=".6">
+                        <div><span>Token Sale I</span><span>January 15- February 15</span></div>
+                        <div><span>67% Bonus</span><span>$0.354344/token</span></div>
+                    </div>
+                </div><!-- .col -->
+                <div class="col-lg">
+                    <div class="toktmln-item animated" data-animate="fadeInUp" data-delay=".7">
+                        <div><span>Token Sale II</span><span>March 01 - March 15</span></div>
+                        <div><span>40% Bonus</span><span>$0.354344/token</span></div>
+                    </div>
+                </div><!-- .col -->
+                <div class="col-lg">
+                    <div class="toktmln-item animated" data-animate="fadeInUp" data-delay=".8">
+                        <div><span>Token Sale III</span><span>March 25- April 15</span></div>
+                        <div><span>20% Bonus</span><span>$0.354344/token</span></div>
+                    </div>
+                </div><!-- .col -->
+                <div class="col-lg">
+                    <div class="toktmln-item animated" data-animate="fadeInUp" data-delay=".9">
+                        <div><span>Token Sale VI</span><span>April 20- May 20</span></div>
+                        <div><span>50% Bonus</span><span>$0.304344/token</span></div>
+                    </div>
+                </div><!-- .col -->
+                <div class="col-lg">
+                    <div class="toktmln-item animated" data-animate="fadeInUp" data-delay="1">
+                        <div><span>Token Sale V</span><span>June 01 - July 30</span></div>
+                        <div><span>30% Bonus</span><span>$0.354344/token</span></div>
+                    </div>
+                    <div></div>
+                </div><!-- .col --></div><!-- .row --></div><!-- .container --></div><!-- .toktmln --></div>
+</div><!-- Start Section -->
+<div class="section section-pad section-bg-zinnia" id="partners">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-6 offset-md-3">
+                <div class="section-head"><h3 class="section-title-md animated" data-animate="fadeInUp" data-delay=".1">
+                    Our Partners</h3></div>
+            </div>
+        </div>
+        <div class="partner-list">
+            <div class="row text-center">
+                <div class="col-sm col-6">
+                    <div class="single-partner animated" data-animate="fadeInUp" data-delay=".2"><img
+                            src="{% static 'statics_land/images/partner-xs-light-a.png' %}" alt="partner"></div>
+                </div>
+                <div class="col-sm col-6">
+                    <div class="single-partner animated" data-animate="fadeInUp" data-delay=".3"><img
+                            src="{% static 'statics_land/images/partner-xs-light-b.png' %}" alt="partner"></div>
+                </div>
+                <div class="col-sm col-6">
+                    <div class="single-partner animated" data-animate="fadeInUp" data-delay=".4"><img
+                            src="{% static 'statics_land/images/partner-xs-light-c.png' %}" alt="partner"></div>
+                </div>
+                <div class="col-sm col-6">
+                    <div class="single-partner animated" data-animate="fadeInUp" data-delay=".5"><img
+                            src="{% static 'statics_land/images/partner-xs-light-d.png' %}" alt="partner"></div>
+                </div>
+                <div class="col-sm col-6">
+                    <div class="single-partner animated" data-animate="fadeInUp" data-delay=".6"><img
+                            src="{% static 'statics_land/images/partner-xs-light-e.png' %}" alt="partner"></div>
+                </div>
+                <div class="col-sm col-6">
+                    <div class="single-partner animated" data-animate="fadeInUp" data-delay=".7"><img
+                            src="{% static 'statics_land/images/partner-xs-light-f.png' %}" alt="partner"></div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-10 offset-md-1">
+                    <div class="row">
+                        <div class="col-sm col-6">
+                            <div class="single-partner animated" data-animate="fadeInUp" data-delay=".8"><img
+                                    src="{% static 'statics_land/images/partner-sm-light-a.png' %}" alt="partner"></div>
+                        </div>
+                        <div class="col-sm col-6">
+                            <div class="single-partner animated" data-animate="fadeInUp" data-delay=".9"><img
+                                    src="{% static 'statics_land/images/partner-sm-light-b.png' %}" alt="partner"></div>
+                        </div>
+                        <div class="col-sm col-6">
+                            <div class="single-partner animated" data-animate="fadeInUp" data-delay="1"><img
+                                    src="{% static 'statics_land/images/partner-sm-light-c.png' %}" alt="partner"></div>
+                        </div>
+                        <div class="col-sm col-6">
+                            <div class="single-partner animated" data-animate="fadeInUp" data-delay="1.1"><img
+                                    src="{% static 'statics_land/images/partner-sm-light-d.png' %}" alt="partner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- End Section --><!-- Start Section -->
+<div class="section section-pad-md section-bg" id="faq">
+    <div class="ui-shape ui-shape-s6"></div>
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-7">
+                <div class="section-head-s7"><h2 class="section-title-s7 animated" data-animate="fadeInUp"
+                                                 data-delay=".1">Frequently asked questions</h2>
+
+                    <p class="animated" data-animate="fadeInUp" data-delay=".2">Below we’ve provided a bit of ICO, ICO
+                        Token, cryptocurrencies, and few others. If you have any other questions, please get in touch
+                        using the contact form below.</p></div>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-10">
+                <div class="tab-custom-s3"><!-- Nav tabs -->
+                    <ul class="nav nav-tabs text-center justify-content-center animated" data-animate="fadeInUp"
+                        data-delay=".1">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-1">General</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-2">Pre-ICO &amp; ICO</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-3">Tokens</a></li>
+                    </ul>
+                    <div class="gaps size-1x"></div><!-- Tab panes -->
+                    <div class="tab-content animated" data-animate="fadeInUp" data-delay=".2">
+                        <div class="tab-pane fade show active" id="tab-1">
+                            <div class="accordion-s2" id="accordion-1">
+                                <div class="card active">
+                                    <div class="card-header"><h5><a data-toggle="collapse" data-target="#collapse-1-1">What
+                                        is ICO Crypto?<span class="plus-minus"><span
+                                                class="ti ti-angle-up"></span></span></a></h5></div>
+                                    <div id="collapse-1-1" class="collapse show" data-parent="#accordion-1">
+                                        <div class="card-body"><p>ICO Crypto - is unique blockchain platform; that is
+                                            secure, smart and easy-to-use platform, and completely disrupting the way
+                                            businesses raise capital, and the way investors buy and sell. </p></div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><h5><a class="collapsed" data-toggle="collapse"
+                                                                    data-target="#collapse-1-2">What cryptocurrencies
+                                        can I use to purchase?<span class="plus-minus"><span
+                                                class="ti ti-angle-up"></span></span></a></h5></div>
+                                    <div id="collapse-1-2" class="collapse" data-parent="#accordion-1">
+                                        <div class="card-body"><p>ICO Crypto - is unique platform; that is secure, smart
+                                            and easy-to-use platform, and completely disrupting the way businesses raise
+                                            capital.</p></div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><h5><a class="collapsed" data-toggle="collapse"
+                                                                    data-target="#collapse-1-3">How can I participate in
+                                        the ICO Token sale?<span class="plus-minus"><span class="ti ti-angle-up"></span></span></a>
+                                    </h5></div>
+                                    <div id="collapse-1-3" class="collapse" data-parent="#accordion-1">
+                                        <div class="card-body"><p>ICO Crypto - is unique platform; that is secure, smart
+                                            and easy-to-use platform, and completely disrupting the way businesses raise
+                                            capital.</p></div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><h5><a class="collapsed" data-toggle="collapse"
+                                                                    data-target="#collapse-1-4">How do I benefit from
+                                        the ICO Token?<span class="plus-minus"><span
+                                                class="ti ti-angle-up"></span></span></a></h5></div>
+                                    <div id="collapse-1-4" class="collapse" data-parent="#accordion-1">
+                                        <div class="card-body"><p>ICO Crypto - is unique platform; that is secure, smart
+                                            and easy-to-use platform, and completely disrupting the way businesses raise
+                                            capital.</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End tab-pane -->
+                        <div class="tab-pane fade" id="tab-2">
+                            <div class="accordion-s2" id="accordion-2">
+                                <div class="card active">
+                                    <div class="card-header"><h5><a data-toggle="collapse" data-target="#collapse-2-1">Which
+                                        of us ever undertakes laborious?<span class="plus-minus"><span
+                                                class="ti ti-angle-up"></span></span></a></h5></div>
+                                    <div id="collapse-2-1" class="collapse show" data-parent="#accordion-2">
+                                        <div class="card-body"><p>ICO Crypto - is unique platform; that is secure, smart
+                                            and easy-to-use platform, and completely disrupting the way businesses raise
+                                            capital.</p></div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><h5><a class="collapsed" data-toggle="collapse"
+                                                                    data-target="#collapse-2-2">Who do not know how to
+                                        pursue rationally?<span class="plus-minus"><span class="ti ti-angle-up"></span></span></a>
+                                    </h5></div>
+                                    <div id="collapse-2-2" class="collapse" data-parent="#accordion-2">
+                                        <div class="card-body"><p>ICO Crypto - is unique platform; that is secure, smart
+                                            and easy-to-use platform, and completely disrupting the way businesses raise
+                                            capital.</p></div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><h5><a class="collapsed" data-toggle="collapse"
+                                                                    data-target="#collapse-2-4">Their separate existence
+                                        is a myth?<span class="plus-minus"><span
+                                                class="ti ti-angle-up"></span></span></a></h5></div>
+                                    <div id="collapse-2-4" class="collapse" data-parent="#accordion-2">
+                                        <div class="card-body"><p>ICO Crypto - is unique platform; that is secure, smart
+                                            and easy-to-use platform, and completely disrupting the way businesses raise
+                                            capital.</p></div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><h5><a class="collapsed" data-toggle="collapse"
+                                                                    data-target="#collapse-2-3">Pityful a rethoric
+                                        question ran over her cheek?<span class="plus-minus"><span
+                                                class="ti ti-angle-up"></span></span></a></h5></div>
+                                    <div id="collapse-2-3" class="collapse" data-parent="#accordion-2">
+                                        <div class="card-body"><p>ICO Crypto - is unique platform; that is secure, smart
+                                            and easy-to-use platform, and completely disrupting the way businesses raise
+                                            capital.</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End tab-pane -->
+                        <div class="tab-pane fade" id="tab-3">
+                            <div class="accordion-s2" id="accordion-3">
+                                <div class="card active">
+                                    <div class="card-header"><h5><a data-toggle="collapse" data-target="#collapse-3-1">When
+                                        she reached the first hills?<span class="plus-minus"><span
+                                                class="ti ti-angle-up"></span></span></a></h5></div>
+                                    <div id="collapse-3-1" class="collapse show" data-parent="#accordion-3">
+                                        <div class="card-body"><p>ICO Crypto - is unique platform; that is secure, smart
+                                            and easy-to-use platform, and completely disrupting the way businesses raise
+                                            capital.</p></div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><h5><a class="collapsed" data-toggle="collapse"
+                                                                    data-target="#collapse-3-2">Big Oxmox advised her
+                                        not to do?<span class="plus-minus"><span
+                                                class="ti ti-angle-up"></span></span></a></h5></div>
+                                    <div id="collapse-3-2" class="collapse" data-parent="#accordion-3">
+                                        <div class="card-body"><p>ICO Crypto - is unique platform; that is secure, smart
+                                            and easy-to-use platform, and completely disrupting the way businesses raise
+                                            capital.</p></div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><h5><a class="collapsed" data-toggle="collapse"
+                                                                    data-target="#collapse-3-3">Which roasted parts of
+                                        sentences fly into your mouth?<span class="plus-minus"><span
+                                                class="ti ti-angle-up"></span></span></a></h5></div>
+                                    <div id="collapse-3-3" class="collapse" data-parent="#accordion-3">
+                                        <div class="card-body"><p>ICO Crypto - is unique platform; that is secure, smart
+                                            and easy-to-use platform, and completely disrupting the way businesses raise
+                                            capital.</p></div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><h5><a class="collapsed" data-toggle="collapse"
+                                                                    data-target="#collapse-3-4">Vokalia and Consonantia,
+                                        there live?<span class="plus-minus"><span class="ti ti-angle-up"></span></span></a>
+                                    </h5></div>
+                                    <div id="collapse-3-4" class="collapse" data-parent="#accordion-3">
+                                        <div class="card-body"><p>ICO Crypto - is unique platform; that is secure, smart
+                                            and easy-to-use platform, and completely disrupting the way businesses raise
+                                            capital.</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- .tab-pane --></div><!-- .tab-content --></div><!-- .tab-custom --></div><!-- .col -->
+        </div><!-- .row --></div><!-- .container --></div><!-- End Section --><!-- Start Section -->
+<div class="section section-pad-md section-bg-alt" id="contact">
+    <div class="ui-shape ui-shape-s7"></div>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col">
+                <div class="section-head-s7"><h2 class="section-title-s7 animated" data-animate="fadeInUp"
+                                                 data-delay=".1">Contact Us</h2>
+
+                    <p class="animated" data-animate="fadeInUp" data-delay=".2">Any question? Reach out to us and we’ll
+                        get back to you shortly.</p></div>
+            </div><!-- .col --></div><!-- .row -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <ul class="contact-info">
+                    <li class="animated" data-animate="fadeInUp" data-delay=".3"><em class="fa fa-phone"></em><span>+44 0123 4567</span>
+                    </li>
+                    <li class="animated" data-animate="fadeInUp" data-delay=".4"><em class="fa fa-envelope"></em><span>info@yourcompany.com</span>
+                    </li>
+                    <li class="animated" data-animate="fadeInUp" data-delay=".5"><em
+                            class="fa fa-paper-plane"></em><span>Join us on Telegram</span></li>
+                </ul>
+            </div><!-- .col --></div><!-- .row -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form id="contact-form" class="form-message text-center show-error-hint"
+                      action="http://demo.themenio.com/ico/form/contact.php" method="post">
+                    <div class="form-results"></div>
+                    <div class="input-field animated" data-animate="fadeInUp" data-delay=".6"><input name="contact-name"
+                                                                                                     type="text"
+                                                                                                     class="input-line required"><label
+                            class="input-title">Your Name</label></div>
+                    <div class="input-field animated" data-animate="fadeInUp" data-delay=".7"><input
+                            name="contact-email" type="email" class="input-line required email"><label
+                            class="input-title">Your Email</label></div>
+                    <div class="input-field animated" data-animate="fadeInUp" data-delay=".8"><textarea
+                            name="contact-message" class="txtarea input-line required"></textarea><label
+                            class="input-title">Your Message</label></div>
+                    <input type="text" class="d-none" name="form-anti-honeypot" value="">
+
+                    <div class="input-field animated" data-animate="fadeInUp" data-delay=".9">
+                        <button type="submit" class="btn">Submit</button>
+                    </div>
+                </form>
+            </div><!-- .col --></div><!-- .row --></div><!-- .container --></div><!-- End Section -->
+<!-- Start Section -->
+<div class="section footer-section section-pad-md no-pb">
+    <div class="ui-shape ui-shape-light ui-shape-footer"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm">
+                <div class="widget-item"><h5 class="widget-title">fEATURES</h5>
+                    <ul class="widget-links">
+                        <li><a href="#">Live Chat</a></li>
+                        <li><a href="#">Email Marketing</a></li>
+                        <li><a href="#">User Analytics</a></li>
+                        <li><a href="#">Crypto Exchange</a></li>
+                    </ul>
+                </div>
+            </div><!-- .col -->
+            <div class="col-lg-3 col-sm">
+                <div class="widget-item"><h5 class="widget-title">RESOURCES</h5>
+                    <ul class="widget-links">
+                        <li><a href="#">Watch Demo</a></li>
+                        <li><a href="#">Whitepaper</a></li>
+                        <li><a href="#">Intigration &amp; API</a></li>
+                        <li><a href="#">iOS &amp; Android Apps</a></li>
+                        <li><a href="#">Privacy &amp; policy</a></li>
+                    </ul>
+                </div>
+            </div><!-- .col -->
+            <div class="col-lg-3 col-sm">
+                <div class="widget-item"><h5 class="widget-title">Company</h5>
+                    <ul class="widget-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div><!-- .col -->
+            <div class="col-lg-3">
+                <div class="widget-item"><h5 class="widget-title widget-title-ncap">NewsLetter</h5>
+
+                    <div class="widget-subsctibe"><p>Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, sed</p>
+
+                        <form id="subscribe-form" action="http://demo.themenio.com/ico/form/subscribe.php" method="post"
+                              class="subscription-form subscription-form-sm"><input type="text" name="youremail"
+                                                                                    class="input-round required email"
+                                                                                    placeholder="Enter mail"><input
+                                type="text" class="d-none" name="form-anti-honeypot" value="">
+                            <button type="submit" class="btn btn-plane"><i class="fas fa-paper-plane"></i></button>
+                            <div class="subscribe-results"></div>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- .col --></div><!-- .row -->
+        <div class="footer-bottom">
+            <div class="row align-items-center">
+                <div class="col-sm-6 res-m-bttm"><a class="footer-brand" href="index.html"><img class="logo logo-light"
+                                                                                                alt="logo"
+                                                                                                src="{% static 'statics_land/images/logo-full-white.png' %}"
+                                                                                                srcset="images/logo-full-white2x.png 2x"></a>
+                </div>
+                <div class="col-sm-6 text-sm-right"><span class="copyright-text"> <a target="_blank" href="https://www.templateshub.net">Templates Hub</a></span></div>
+            </div>
+        </div>
+    </div><!-- .container --></div><!-- End Section --><!-- Preloader !remove please if you do not want -->
+<div id="preloader">
+    <div id="loader"></div>
+    <div class="loader-section loader-top"></div>
+    <div class="loader-section loader-bottom"></div>
+</div><!-- Preloader End --><!-- JavaScript (include all script here) -->
+<script src="{% static 'statics_land/assets/js/jquery.bundlee222.js' %}"></script>
+<script src="{% static 'statics_land/assets/js/scripte222.js' %}"></script>
+</body>
+</html>

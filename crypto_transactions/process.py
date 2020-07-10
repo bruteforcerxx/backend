@@ -10,29 +10,78 @@ from .models import DebitTransaction, Address
 # make transaction here
 key = "qllinMZsWKJxMbm1"
 secret = "O8166FUvpXgZk5XowalRE8cP0tVXRWkT"
+
 btc_id ="98d51393-b7bf-5381-b727-21200c515708"
+eth_id = "181fc56c-73d6-568e-ab6d-1c0aedc9f333"
+ltc_id = "7c31f848-dc67-5510-8ff4-0e5e74a700c6"
+bch_id = "b38fa818-27f2-5fe2-822f-0d24ab658ee1"
 
 
 def get_address(user, cu):
-
     print(type(cu))
     client = Client(key, secret)
-    address = client.create_address(btc_id)
+
+    address = None
+    print(cu)
+    if cu == 'BITCOIN':
+        address = client.create_address(btc_id)
+    if cu == 'ETHERUM':
+        address = client.create_address(eth_id)
+    if cu == 'BITCOINCASH':
+        address = client.create_address(bch_id)
+    if cu == 'LITECOIN':
+        address = client.create_address(ltc_id)
+
     user = User.objects.get(username=user)
     address_saver = Address(user=user, address=address['address'], currency=cu)
     address_saver.save()
     return address['address']
 
 
+
+def bal_converter(x):
+    print(len(x))
+    if len(x) == 6:
+        a = x[0]
+        b = x[1:]
+        return f'{a},{b}'
+    elif len(x) == 7:
+        a = x[:2]
+        b = x[2:]
+        return f'{a},{b}'
+    elif len(x) == 8:
+        a = x[:3]
+        b = x[3:]
+        return f'{a},{b}'
+    elif len(x) == 9:
+        a = x[0]
+        b = x[1:4]
+        c = x[4:]
+        return f'{a},{b},{c}'
+    elif len(x) == 10:
+        a = x[:2]
+        b = x[2:5]
+        c = x[5:]
+        return f'{a},{b},{c}'
+    elif len(x) == 11:
+        a = x[:2]
+        b = x[2:5]
+        c = x[5:]
+        return f'{a},{b},{c}'
+    else:
+        return x
+
+
 def coinbase(param):
 
     print(f'data: {param}')
     try:
-        tx = ['completed']
-        # client = Client(key, secret)
-        # tx = client.send_money(btc_id, to=param['to'], amount=param['amount], currency=param['currency'],
-        # desc=param[desc])
-        if 'completed' in tx:
+        # tx = ['completed']
+        print('sending to coinbase....')
+        client = Client(key, secret)
+        tx = client.send_money(btc_id, to=param['to'], amount=float(param['amount']), currency=param['currency'], desc=param['desc'])
+        print(tx)
+        if tx['status'] == 'completed':
             param['status'] = 'success'
             param['resolved'] = True
             currency = param['currency']
@@ -163,7 +212,7 @@ def local(param):
                 history = eval(hist.eth_history)
                 history[identity] = param
                 hist.eth_history = str(history)
-            elif currency == 'LITE':
+            elif currency == 'LTC':
                 balance = float(r.litecoin_balance)
                 balance += float(param['amount'])
                 r.litecoin_balance = balance

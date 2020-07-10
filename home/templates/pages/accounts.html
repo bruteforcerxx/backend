@@ -3,13 +3,8 @@
 * Argon Dashboard - v1.2.0
 =========================================================
 * Product Page: https://www.creative-tim.com/product/argon-dashboard
-
-
 * Copyright  Creative Tim (http://www.creative-tim.com)
 * Coded by www.creative-tim.com
-
-
-
 =========================================================
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
@@ -24,7 +19,7 @@
       <div class="container-fluid">
           <div class="header-body">
                       <div class="row justify-content-center">
-                      <h2 class="display-1 mt-1"  style="color: white; font-weight: 300">{{currency}} wallet</h2>
+                      <h2 class="display-1 mt-1"  style="color: white; font-weight: 500">{{currency}} wallet</h2>
                       </div>
           </div>
       </div>
@@ -58,11 +53,12 @@
                         <span class="btn-inner--text">Send</span>
                       </button>
 
-                      <button type="button" class="btn  btn-icon btn-primary"  data-toggle="modal"
-                              data-target=""  style="float: right; min-width: 130px; background-color: #0027e3">
+                      <a href="{% url 'receive' %}">
+                      <button type="button" class="btn  btn-icon btn-primary" style="float: right; min-width: 130px; background-color: #0027e3">
                         <span class="btn-inner--icon"><i class="ni ni-money-coins"></i></span>
                         <span class="btn-inner--text">Receive</span>
                       </button>
+                          </a>
                     </div>
                     <div>
                     </div>
@@ -269,11 +265,6 @@
 
 
 
-
-
-
-
-
                </div>
               </div>
             </div>
@@ -309,13 +300,17 @@
                           <div>
                               <div class="row" style="margin-left: 10px; width: 100%">
                               <span class="badge badge-lg  badge-dot mr-4" style="margin-top: -4px">
-                                                        <i class="bg-warning"></i>Debit</span>
+                                                        <i class="bg-danger"></i>Debit</span>
                                   <h5 style="margin-top: 4px; font-weight: 500; margin-left: 35px;">{{x.time}}</h5>
                               </div>
 
                               <div class="row">
                                   <span class="text-danger mr-2" style="margin-left: 23px"><i class="fa fa-arrow-up"></i></span>
-                              <h5 style="margin-top: 2px; font-weight: 500; margin-left: -3px;">BTC -{{x.amount}}</h5>
+                              <h5 style="margin-top: 2px; font-weight: 500; margin-left: -3px;">{% if currency == 'Bitcoin' %}BTC
+                                  {% elif currency == 'Etherum' %}ETH {% elif currency == 'Litecoin' %}LTC
+                                  {% elif currency == 'Bitcoincash' %}BCH
+                                  {{ else }}
+                                  {% endif %}-{{x.amount}}</h5>
 
                               </div>
                               <div class="row" style="margin-top: -4px;">
@@ -334,7 +329,11 @@
 
                               <div class="row">
                                   <span class="text-success mr-2" style="margin-left: 23px"><i class="fa fa-arrow-down"></i></span>
-                              <h5 style="margin-top: 2px; font-weight: 500; margin-left: -3px;">BTC {{x.amount}}</h5>
+                              <h5 style="margin-top: 2px; font-weight: 500; margin-left: -3px;">{% if currency == 'Bitcoin' %}BTC
+                                  {% elif currency == 'Etherum' %}ETH {% elif currency == 'Litecoin' %}LTC
+                                  {% elif currency == 'Bitcoincash' %}BCH
+                                  {{ else }}
+                                  {% endif %}{{x.amount}}</h5>
 
                               </div>
                               <div class="row" style="margin-top: -4px;">
@@ -364,6 +363,3 @@
   <!-- Argon JS -->
   <script src="../assets/js/argon.js?v=1.2.0"></script>
   {% endblock %}
-
-
-
