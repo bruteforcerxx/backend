@@ -6,4 +6,5 @@ urlpatterns = [
     path('receive/', views.receive, name='receive'),
     path('qr/', views.qrcam, name='qr'),
     path('send/confirm/', views.check, name='check'),
+    
 ]

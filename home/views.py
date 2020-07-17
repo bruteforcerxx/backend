@@ -182,3 +182,9 @@ def services(request):
     page = 'test.html'
     template = loader.get_template(page)
     return HttpResponse(template.render({'header': 'TESTING SERVICES VIEW'}, request), status=status.HTTP_200_OK)
+
+
+def settings(request):
+    page = 'pages/settings.html'
+    template = loader.get_template(page)
+    return HttpResponse(template.render({'header': 'TESTING SERVICES VIEW'}, request), status=status.HTTP_200_OK)

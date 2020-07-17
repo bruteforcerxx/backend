@@ -8873,7 +8873,7 @@ button.bg-dark:focus
 
 .bg-default
 {
-    background-color: #172b4d !important;
+    background-color: #0027e3;
 }
 
 a.bg-default:hover,
@@ -24193,7 +24193,7 @@ button.bg-lighter:focus
 
 .bg-gradient-default
 {
-    background: linear-gradient(87deg, #172b4d 0, #1a174d 100%) !important;
+    background-color: #0027e3 !important;
 }
 
 .bg-gradient-white
@@ -24549,7 +24549,7 @@ button.section-darker:focus
 
 .bg-gradient-default
 {
-    background: linear-gradient(87deg, #172b4d 0, #1a174d 100%) !important;
+    background-color: #0027e3 !important;
 }
 
 .bg-gradient-white

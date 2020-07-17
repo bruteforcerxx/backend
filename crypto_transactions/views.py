@@ -16,7 +16,6 @@ import datetime
 
 # Create your views here.
 
-
 @api_view(['GET', 'POST'])
 def crypto(request, currency):
     try:
