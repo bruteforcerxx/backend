@@ -41,5 +41,6 @@ def run_luno_auto():
 
 auto_thread_1 = Thread(target=run_luno_auto)
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'axemo_project.settings')
 
 
