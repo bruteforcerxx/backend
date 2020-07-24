@@ -299,12 +299,17 @@
                       {%if x.type == "Debit" %}
                           <div>
                               <div class="row" style="margin-left: 10px; width: 100%">
-                              <span class="badge badge-lg  badge-dot mr-4" style="margin-top: -4px">
-                                                        <i class="bg-danger"></i>Debit</span>
-                                  <h5 style="margin-top: 4px; font-weight: 500; margin-left: 35px;">{{x.time}}</h5>
+                                <div class="col col-lg-10">
+                                  <span class="badge badge-lg  badge-dot mr-4" style="margin-top: -4px">
+                                    <i class="bg-danger"></i>Debit</span>
+                                </div> 
+                                <div class="col col-lg-2">
+                                  <h5 style="margin-top: 4px; font-weight: 500; padding-left: 70%;">p{{x.time}}</h5>
+                                </div>                            
+                                  
                               </div>
 
-                              <div class="row">
+                              <div class="row col-lg-10">
                                   <span class="text-danger mr-2" style="margin-left: 23px"><i class="fa fa-arrow-up"></i></span>
                               <h5 style="margin-top: 2px; font-weight: 500; margin-left: -3px;">{% if currency == 'Bitcoin' %}BTC
                                   {% elif currency == 'Etherum' %}ETH {% elif currency == 'Litecoin' %}LTC
@@ -321,6 +326,7 @@
                               {% elif x.type == "Credit"%}
                               <div>
                                   <div class="row" style="margin-left: 10px;">
+                                  
                               <span class="badge badge-lg  badge-dot mr-4" style="margin-top: -4px">
                                                         <i class="bg-success"></i>Credit</span>
                                       <h5 style="margin-top: 4px; font-weight: 500; margin-left: 35px;">{{x.time}}</h5>
