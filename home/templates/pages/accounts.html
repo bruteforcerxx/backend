@@ -326,11 +326,13 @@
                               {% elif x.type == "Credit"%}
                               <div>
                                   <div class="row" style="margin-left: 10px;">
-                                  
-                              <span class="badge badge-lg  badge-dot mr-4" style="margin-top: -4px">
-                                                        <i class="bg-success"></i>Credit</span>
-                                      <h5 style="margin-top: 4px; font-weight: 500; margin-left: 35px;">{{x.time}}</h5>
-
+                                  <div class="col col-lg-10"> 
+                                    <span class="badge badge-lg  badge-dot mr-4" style="margin-top: -4px">
+                                    <i class="bg-success"></i>Credit</span>
+                                  </div>
+                                  <div class="col col-lg-2">
+                                      <h5 style="margin-top: 4px; font-weight: 500; padding-left: 70%;">{{x.time}}</h5>
+                                    </div>
                                   </div>
 
                               <div class="row">
